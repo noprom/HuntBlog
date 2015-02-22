@@ -5,5 +5,20 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_app_start">AppStart</string>
+    <string name="drawer_close">关闭</string>
+    <string name="drawer_open">打开</string>
+    <string name="app_description">Android drawer icon with material design animation</string>
 
+    <!-- Drawer Items -->
+    <string name="drawer_item_action_bar">ActionBar Sample</string>
+    <string name="drawer_item_multi_drawer">MultiDrawer Sample</string>
+    <string name="drawer_item_non_translucent_status_drawer">NonTranslucentStatusDrawer Sample</string>
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_free_play">Free Play</string>
+    <string name="drawer_item_custom">Custom</string>
+    <string name="drawer_item_section_header">Section Header</string>
+    <string name="drawer_item_settings">Settings</string>
+    <string name="drawer_item_help">Help</string>
+    <string name="drawer_item_open_source">Open Source</string>
+    <string name="drawer_item_contact">Contact</string>
 </resources>

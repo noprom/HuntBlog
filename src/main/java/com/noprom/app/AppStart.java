@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.noprom.app.common.FileUtils;
 import com.noprom.app.common.StringUtils;
+import com.noprom.app.ui.MainActivity;
 
 import java.io.File;
 import java.util.List;
@@ -60,6 +61,8 @@ public class AppStart extends Activity {
 
         // 兼容低版本的cookie（1.5版本以下，包括1.5.0,1.5.1）
         // TODO
+
+
     }
 
     private void redirectTo() {
