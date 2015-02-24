@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.noprom.app.R;
+import com.noprom.app.fragment.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +97,7 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
 
         FragmentManager mFragmentManager = getSupportFragmentManager();
 
-        Fragment mFragment = new FragmentMain().newInstance(mListNameItem.get(position));
+        Fragment mFragment = new MainFragment().newInstance(mListNameItem.get(position));
 
         if (mFragment != null){
             mFragmentManager.beginTransaction().replace(layoutContainerId, mFragment).commit();

@@ -22,24 +22,24 @@ import android.widget.TextView;
 
 import com.noprom.app.R;
 
-public class SettingsActivity extends ActionBarActivity {
+        public class SettingsActivity extends ActionBarActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_main);
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(R.layout.fragment_main);
 
-        TextView mTxtTitle = (TextView) findViewById(R.id.txtTitle);
-        mTxtTitle.setText(getString(R.string.settings));
+                TextView mTxtTitle = (TextView) findViewById(R.id.txtTitle);
+                mTxtTitle.setText(getString(R.string.settings));
 
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
+                getSupportActionBar().setHomeButtonEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        finish();
-        return super.onOptionsItemSelected(item);
+            @Override
+            public boolean onOptionsItemSelected(MenuItem item) {
+                finish();
+                return super.onOptionsItemSelected(item);
     }
 }

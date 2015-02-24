@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.noprom.app.ui;
+package com.noprom.app.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -31,13 +31,13 @@ import android.widget.Toast;
 
 import com.noprom.app.R;
 
-public class FragmentMain extends Fragment {
+public class MainFragment extends Fragment {
 
     private boolean mSearchCheck;
     private static final String TEXT_FRAGMENT = "TEXT_FRAGMENT";
 
-	public FragmentMain newInstance(String text){
-		FragmentMain mFragment = new FragmentMain();
+	public MainFragment newInstance(String text){
+		MainFragment mFragment = new MainFragment();
 		Bundle mBundle = new Bundle();
 		mBundle.putString(TEXT_FRAGMENT, text);
 		mFragment.setArguments(mBundle);
@@ -47,26 +47,23 @@ public class FragmentMain extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub		
 		View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         TextView mTxtTitle = (TextView) rootView.findViewById(R.id.txtTitle);
         mTxtTitle.setText(getArguments().getString(TEXT_FRAGMENT));
 
 		rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT ));		
-		return rootView;		
+		return rootView;
 	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		setHasOptionsMenu(true);
 	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// TODO Auto-generated method stub
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.menu, menu);
         
@@ -88,8 +85,6 @@ public class FragmentMain extends Fragment {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		
 		switch (item.getItemId()) {
 
 		case R.id.menu_add:

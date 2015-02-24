@@ -23,7 +23,10 @@
             android:theme="@style/nLiveoDrawer"
             android:label="@string/title_activity_app_start" >
         </activity>
-
+        <activity
+            android:name=".ui.SettingsActivity"
+            android:label="@string/settings">
+        </activity>
 
     </application>
 </manifest>
