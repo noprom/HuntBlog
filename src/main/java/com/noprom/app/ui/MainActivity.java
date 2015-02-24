@@ -97,7 +97,7 @@ public class MainActivity extends NavigationLiveo implements NavigationLiveoList
 
         FragmentManager mFragmentManager = getSupportFragmentManager();
 
-        Fragment mFragment = new MainFragment().newInstance(mListNameItem.get(position));
+        Fragment mFragment = new MainFragment();
 
         if (mFragment != null){
             mFragmentManager.beginTransaction().replace(layoutContainerId, mFragment).commit();

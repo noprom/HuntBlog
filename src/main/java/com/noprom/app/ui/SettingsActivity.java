@@ -18,7 +18,6 @@ package com.noprom.app.ui;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.noprom.app.R;
 
@@ -29,8 +28,8 @@ import com.noprom.app.R;
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.fragment_main);
 
-                TextView mTxtTitle = (TextView) findViewById(R.id.txtTitle);
-                mTxtTitle.setText(getString(R.string.settings));
+//                TextView mTxtTitle = (TextView) findViewById(R.id.txtTitle);
+//                mTxtTitle.setText(getString(R.string.settings));
 
                 getSupportActionBar().setHomeButtonEnabled(true);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);

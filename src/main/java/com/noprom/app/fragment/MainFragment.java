@@ -17,6 +17,7 @@ package com.noprom.app.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,47 +27,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.noprom.app.R;
+import com.noprom.app.adapter.TabAdapter;
+import com.noprom.app.widget.viewpagerindicator.TabPageIndicator;
 
 public class MainFragment extends Fragment {
 
     private boolean mSearchCheck;
-    private static final String TEXT_FRAGMENT = "TEXT_FRAGMENT";
+    private ViewPager mViewPager;
+    private TabPageIndicator mTabPageIndicator;
+    private TabAdapter mAdapter;
 
-	public MainFragment newInstance(String text){
-		MainFragment mFragment = new MainFragment();
-		Bundle mBundle = new Bundle();
-		mBundle.putString(TEXT_FRAGMENT, text);
-		mFragment.setArguments(mBundle);
-		return mFragment;
-	}
-	
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        TextView mTxtTitle = (TextView) rootView.findViewById(R.id.txtTitle);
-        mTxtTitle.setText(getArguments().getString(TEXT_FRAGMENT));
+        mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager_main);
+        mTabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.indicator_main);
+        mAdapter = new TabAdapter(getFragmentManager());
+        mViewPager.setAdapter(mAdapter);
+        mTabPageIndicator.setViewPager(mViewPager, 0);
 
-		rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT ));		
-		return rootView;
-	}
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		setHasOptionsMenu(true);
-	}
-	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.menu, menu);
-        
+        rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu, menu);
+
         //Select search item
         final MenuItem menuItem = menu.findItem(R.id.menu_search);
         menuItem.setVisible(true);
@@ -78,39 +77,39 @@ public class MainFragment extends Fragment {
                 .setHintTextColor(getResources().getColor(R.color.nliveo_white));
         searchView.setOnQueryTextListener(onQuerySearchView);
 
-		menu.findItem(R.id.menu_add).setVisible(true);
+        menu.findItem(R.id.menu_add).setVisible(true);
 
-		mSearchCheck = false;	
-	}
+        mSearchCheck = false;
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
-		case R.id.menu_add:
-            Toast.makeText(getActivity(), R.string.add, Toast.LENGTH_SHORT).show();
-			break;
+            case R.id.menu_add:
+                Toast.makeText(getActivity(), R.string.add, Toast.LENGTH_SHORT).show();
+                break;
 
-		case R.id.menu_search:
-			mSearchCheck = true;
-            Toast.makeText(getActivity(), R.string.search, Toast.LENGTH_SHORT).show();
-			break;
-		}
-		return true;
-	}	
+            case R.id.menu_search:
+                mSearchCheck = true;
+                Toast.makeText(getActivity(), R.string.search, Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return true;
+    }
 
-   private SearchView.OnQueryTextListener onQuerySearchView = new SearchView.OnQueryTextListener() {
-       @Override
-       public boolean onQueryTextSubmit(String s) {
-           return false;
-       }
+    private SearchView.OnQueryTextListener onQuerySearchView = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String s) {
+            return false;
+        }
 
-       @Override
-       public boolean onQueryTextChange(String s) {
-           if (mSearchCheck){
-               // implement your search here
-           }
-           return false;
-       }
-   };
+        @Override
+        public boolean onQueryTextChange(String s) {
+            if (mSearchCheck) {
+                // implement your search here
+            }
+            return false;
+        }
+    };
 }
