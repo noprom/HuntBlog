@@ -42,7 +42,8 @@ public class AppContext extends Application {
      * 初始化
      */
     private void init() {
-
+        // 设置保存图片的路径
+//        saveImagePath =
     }
 
     /**

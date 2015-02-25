@@ -207,6 +207,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 		}
 
 	}
+
 	/**
 	 * 自定义异常处理:收集错误信息&发送错误报告
 	 * @param ex
@@ -235,6 +236,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 		}.start();
 		return true;
 	}
+
 	/**
 	 * 获取APP崩溃异常报告
 	 * @param ex
@@ -252,4 +254,7 @@ public class AppException extends Exception implements UncaughtExceptionHandler{
 		}
 		return exceptionStr.toString();
 	}
+
+
+
 }
