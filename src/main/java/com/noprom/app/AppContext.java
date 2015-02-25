@@ -1,10 +1,17 @@
 package com.noprom.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.media.AudioManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
+import com.noprom.app.common.StringUtils;
 
 import java.util.Hashtable;
+import java.util.Properties;
 
 /**
  * 全局应用程序类：用于保存和调用全局应用配置及访问网络数据
@@ -43,8 +50,115 @@ public class AppContext extends Application {
      */
     private void init() {
         // 设置保存图片的路径
-//        saveImagePath =
+        saveImagePath = getProperty(AppConfig.SAVE_IMAGE_PATH);
+        if(StringUtils.isEmpty(saveImagePath)){
+            setProperty(AppConfig.SAVE_IMAGE_PATH,AppConfig.DEFAULT_SAVE_IMAGE_PATH);
+            saveImagePath = AppConfig.DEFAULT_SAVE_IMAGE_PATH;
+        }
     }
+
+    /**
+     * 检测当前系统声音是否为正常模式
+     * @return
+     */
+    public boolean isAudioNormal(){
+        AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        return audioManager.getRingerMode() == AudioManager.RINGER_MODE_NORMAL;
+    }
+
+    /**
+     * 是否发出提示音
+     * @return
+     */
+    public boolean isVoice()
+    {
+        String perf_voice = getProperty(AppConfig.CONF_VOICE);
+        //默认是开启提示声音
+        if(StringUtils.isEmpty(perf_voice))
+            return true;
+        else
+            return StringUtils.toBool(perf_voice);
+    }
+
+    /**
+     * 应用程序是否发出声音
+     * @return
+     */
+    public boolean isAppSound(){
+        return isAudioNormal() && isVoice();
+    }
+
+    /**
+     * 检测网络是否可用
+     * @return
+     */
+    public boolean isNetworkConnected(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        return ni != null && ni.isConnectedOrConnecting();
+    }
+
+    /**
+     * 获取当前网络类型
+     * @return 0：没有网络 1：WIFI 2：WAP 3：NET
+     */
+    public int getNetworkType(){
+        int netType = 0;
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo ni = cm.getActiveNetworkInfo();
+        if(ni == null){
+            return netType;
+        }
+        int nType = ni.getType();
+        if(nType == ConnectivityManager.TYPE_MOBILE){
+            String extraInfo = ni.getExtraInfo();
+            if(!StringUtils.isEmpty(extraInfo)){
+                if(extraInfo.toLowerCase().equals("cmnet")){
+                    netType = NETTYPE_CMNET;
+                }else{
+                    netType = NETTYPE_CMWAP;
+                }
+            }
+        }else if(nType == ConnectivityManager.TYPE_WIFI){
+            netType = NETTYPE_WIFI;
+        }
+        return netType;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 获取App安装包信息
@@ -60,5 +174,46 @@ public class AppContext extends Application {
         if(info == null) info = new PackageInfo();
         return info;
     }
+
+
+    public boolean containsProperty(String key){
+        Properties props = getProperties();
+        return props.containsKey(key);
+    }
+
+    public void setProperties(Properties ps){
+        AppConfig.getAppConfig(this).set(ps);
+    }
+
+    public Properties getProperties(){
+        return AppConfig.getAppConfig(this).get();
+    }
+
+    public void setProperty(String key,String value){
+        AppConfig.getAppConfig(this).set(key, value);
+    }
+
+    public String getProperty(String key){
+        return AppConfig.getAppConfig(this).get(key);
+    }
+    public void removeProperty(String...key){
+        AppConfig.getAppConfig(this).remove(key);
+    }
+
+    /**
+     * 获取内存中保存图片的路径
+     * @return
+     */
+    public String getSaveImagePath() {
+        return saveImagePath;
+    }
+    /**
+     * 设置内存中保存图片的路径
+     * @return
+     */
+    public void setSaveImagePath(String saveImagePath) {
+        this.saveImagePath = saveImagePath;
+    }
+
 
 }
