@@ -24,5 +24,6 @@
     <!-- Toast -->
     <string name="open_user_profile">Open user profile</string>
     <string name="open_settings">Open settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

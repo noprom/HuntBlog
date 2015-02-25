@@ -1,22 +1,9 @@
-/*
- * Copyright 2015 Rudson Lima
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.noprom.app.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -30,30 +17,73 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.noprom.app.R;
-import com.noprom.app.adapter.TabAdapter;
 import com.noprom.app.widget.viewpagerindicator.TabPageIndicator;
 
+import java.util.ArrayList;
+import java.util.List;
+/**
+ * 综合Tab 新闻资讯主Fragment
+ *
+ * @author noprom (http://github.com/noprom)
+ * @version 1.0
+ *          Created by noprom on 2014-2-25.
+ */
 public class MainFragment extends Fragment {
 
     private boolean mSearchCheck;
     private ViewPager mViewPager;
     private TabPageIndicator mTabPageIndicator;
-    private TabAdapter mAdapter;
+    private List<Fragment> mFragments;
+    private FragmentPagerAdapter mAdapter;
+    private String[] mMainTabTitles;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
         mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager_main);
         mTabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.indicator_main);
-        mAdapter = new TabAdapter(getFragmentManager());
-        mViewPager.setAdapter(mAdapter);
-        mTabPageIndicator.setViewPager(mViewPager, 0);
-
+        initView();
         rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         return rootView;
     }
+
+    /**
+     * 初始化主界面新闻资讯的Fragment等
+     */
+    private void initView() {
+        mFragments = new ArrayList<Fragment>();
+        Fragment mNewsFragment = new NewsFragment();
+        Fragment mHotNewsFragment = new HotNewsFragment();
+        Fragment mBlogFragment = new BlogFragment();
+        Fragment mRecommendFragment = new RecommendFragment();
+        mFragments.add(mNewsFragment);
+        mFragments.add(mHotNewsFragment);
+        mFragments.add(mBlogFragment);
+        mFragments.add(mRecommendFragment);
+
+        mMainTabTitles = new String[]{"资讯","热点","博客","推荐"};
+        // 设置适配器
+        mAdapter = new FragmentPagerAdapter(getFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return mFragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return mFragments.size();
+            }
+            @Override
+            public CharSequence getPageTitle(int position){
+                return mMainTabTitles[position];
+            }
+
+        };
+        mViewPager.setAdapter(mAdapter);
+        mTabPageIndicator.setViewPager(mViewPager, 0);
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
