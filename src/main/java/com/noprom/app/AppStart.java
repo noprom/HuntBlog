@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 
 import com.noprom.app.common.FileUtils;
 import com.noprom.app.common.StringUtils;
-import com.noprom.app.ui.TestActivity;
+import com.noprom.app.ui.MainActivity;
 
 import java.io.File;
 import java.util.List;
@@ -66,7 +66,7 @@ public class AppStart extends Activity {
     }
 
     private void redirectTo() {
-        Intent intent = new Intent(this, TestActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }
