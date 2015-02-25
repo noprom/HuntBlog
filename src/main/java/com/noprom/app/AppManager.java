@@ -10,7 +10,7 @@ import java.util.Stack;
  * 应用程序Activity管理类：用于Activity管理和应用程序退出
  * @author noprom (http://github.com/noprom)
  * @version 1.0
- *          Created by noprom on 2014-2-22.
+ *          Created by noprom on 2014-2-25.
  */
 
 public class AppManager {
