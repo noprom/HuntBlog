@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    app:statusBarBackground="?attr/colorPrimary"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false"
+        android:orientation="vertical">
+
+        <include layout="@layout/navigation_toolbar" />
+        <include layout="@layout/navigation_container" />
+    </LinearLayout>
+
+    <com.noprom.app.widget.navigationliveo.ScrimInsetsFrameLayout
+        android:id="@+id/relativeDrawer"
+        android:layout_width="@dimen/drawer_layout_width"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
+        app:insetForeground="#4000">
+
+        <include
+            android:fitsSystemWindows="true"
+            layout="@layout/navigation_list_drawer" />
+    </com.noprom.app.widget.navigationliveo.ScrimInsetsFrameLayout>
+</android.support.v4.widget.DrawerLayout>

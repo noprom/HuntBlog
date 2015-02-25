@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.noprom.app.widget.navigation;
+package com.noprom.app.widget.navigationliveo;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,9 +26,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.noprom.app.R;
+
 import java.util.List;
 
-import br.liveo.navigationliveo.R;
 
 
 public class NavigationLiveoAdapter extends BaseAdapter {

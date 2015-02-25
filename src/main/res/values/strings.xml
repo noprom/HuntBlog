@@ -20,6 +20,18 @@
     <string name="settings">Settings</string>
     <string name="add">Add</string>
     <string name="search">Search</string>
+    <string name="clear">""</string>
+
+
+
+    <string name="header_not_created">Header was not created</string>
+    <string name="custom_header_not_created">Custom header was not created</string>
+    <string name="start_navigation_listener">You must start the NavigationListener in onInit() method of its main activity. Example: this.setNavigationListener(this);</string>
+    <string name="title_null_or_empty">The title can not be null or empty</string>
+    <string name="remove_selector_navigation">The option to remove the select is active. Please remove the removeSelectorNavigation method so you can use the setNewSelectorNavigation</string>
+    <string name="list_null_or_empty">List of null or empty names. Solution: mListNameItem = new ArrayList &#60;&#62; (); mListNameItem.add (position, R.string.name);</string>
+    <string name="value_icon_should_be_0">The value of the icon for a subHeader item should be 0</string>
+    <string name="enter_item_name_position">Enter the item name position </string>
     <!-- Toast -->
     <string name="open_user_profile">Open user profile</string>
     <string name="open_settings">Open settings</string>

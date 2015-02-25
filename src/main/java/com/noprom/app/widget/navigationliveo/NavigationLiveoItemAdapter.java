@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.noprom.app.widget.navigation;
+package com.noprom.app.widget.navigationliveo;
 
 public class NavigationLiveoItemAdapter {
 
