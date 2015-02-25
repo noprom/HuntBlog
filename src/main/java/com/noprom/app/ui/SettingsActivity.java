@@ -21,7 +21,7 @@ import android.view.MenuItem;
 
 import com.noprom.app.R;
 
-        public class SettingsActivity extends ActionBarActivity {
+public class SettingsActivity extends ActionBarActivity {
 
             @Override
             protected void onCreate(Bundle savedInstanceState) {
