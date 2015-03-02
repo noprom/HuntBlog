@@ -37,17 +37,15 @@ public class ListViewNewsAdapter extends BaseAdapter {
 
     /**
      * 实例化Adapter
-     *
      * @param context
-     * @param listItems
-     * @param listContainer
-     * @param itemViewResource
+     * @param data
+     * @param resource
      */
-    public ListViewNewsAdapter(Context context, List<News> listItems, LayoutInflater listContainer, int itemViewResource) {
-        mContext = context;
-        this.listItems = listItems;
-        this.listContainer = listContainer;
-        this.itemViewResource = itemViewResource;
+    public ListViewNewsAdapter(Context context, List<News> data,int resource) {
+        this.mContext = context;
+        this.listContainer = LayoutInflater.from(context);	//创建视图容器并设置上下文
+        this.itemViewResource = resource;
+        this.listItems = data;
     }
 
     @Override
@@ -107,7 +105,6 @@ public class ListViewNewsAdapter extends BaseAdapter {
             listItemView.flag.setVisibility(View.VISIBLE);
         else
             listItemView.flag.setVisibility(View.GONE);
-
 
         return convertView;
     }
