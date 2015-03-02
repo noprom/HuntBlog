@@ -115,6 +115,12 @@ public class MainNewsFragment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
 //                super.handleMessage(msg);
+                if(msg.what >= 0){
+                    // listview数据处理
+                    Notice notice = handleLvData(msg.what,msg.obj,msg.arg2,msg.arg1);
+
+                    // TODO
+                }
 
             }
         };
