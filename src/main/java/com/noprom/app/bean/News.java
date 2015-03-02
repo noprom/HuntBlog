@@ -2,6 +2,7 @@ package com.noprom.app.bean;
 
 import android.util.Xml;
 
+import com.noprom.app.AppException;
 import com.noprom.app.common.StringUtils;
 
 import org.xmlpull.v1.XmlPullParser;
