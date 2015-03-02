@@ -8,7 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.noprom.app.R;
 import com.noprom.app.bean.News;
+import com.noprom.app.common.StringUtils;
 
 import java.util.List;
 
@@ -80,8 +82,32 @@ public class ListViewNewsAdapter extends BaseAdapter {
             convertView = listContainer.inflate(this.itemViewResource,null);
             listItemView = new ListItemView();
             // 获取控件对象
-            listItemView.title = convertView.findViewById(R.id.new)
+            listItemView.title = (TextView)convertView.findViewById(R.id.news_listitem_title);
+            listItemView.author = (TextView)convertView.findViewById(R.id.news_listitem_author);
+            listItemView.count= (TextView)convertView.findViewById(R.id.news_listitem_commentCount);
+            listItemView.date= (TextView)convertView.findViewById(R.id.news_listitem_date);
+            listItemView.flag= (ImageView)convertView.findViewById(R.id.news_listitem_flag);
+
+            // 设置控件集到convertView
+            convertView.setTag(listItemView);
+        }else{
+            listItemView = (ListItemView) convertView.getTag();
         }
+
+        // 设置文字和图片
+        News news = listItems.get(position);
+
+        listItemView.title.setText(news.getTitle());
+        listItemView.title.setTag(news);//设置隐藏参数(实体类)
+        listItemView.author.setText(news.getAuthor());
+        listItemView.date.setText(StringUtils.friendly_time(news.getPubDate()));
+        listItemView.count.setText(news.getCommentCount()+"");
+
+        if(StringUtils.isToday(news.getPubDate()))
+            listItemView.flag.setVisibility(View.VISIBLE);
+        else
+            listItemView.flag.setVisibility(View.GONE);
+
 
         return convertView;
     }
