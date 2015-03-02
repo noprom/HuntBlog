@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.noprom.app.R;
 import com.noprom.app.adapter.ListViewNewsAdapter;
 import com.noprom.app.bean.News;
+import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Notice;
 import com.noprom.app.common.UIHelper;
 import com.noprom.app.widget.PullToRefreshListView;
@@ -40,6 +41,7 @@ public class MainNewsFragment extends Fragment {
     private PullToRefreshListView lvNews;
     private ListViewNewsAdapter lvNewsAdapter;
     private List<News> lvNewsData = new ArrayList<News>();
+    private int lvNewsSumData;
 
     private Handler lvNewsHandler;
 
@@ -136,12 +138,50 @@ public class MainNewsFragment extends Fragment {
                 switch (objtype){
                     // 新闻数据
                     case UIHelper.LISTVIEW_DATATYPE_NEWS:
-
+                        NewsList nlist = (NewsList) obj;
+                        notice = nlist.getNotice();
+                        lvNewsSumData = what;
+                        // 处理新增数据
+                        if (actiontype == UIHelper.LISTVIEW_ACTION_REFRESH) {
+                            if (lvNewsData.size() > 0) {
+                                for (News news1 : nlist.getNewslist()) {
+                                    boolean b = false;
+                                    for (News news2 : lvNewsData) {
+                                        if (news1.getId() == news2.getId()) {
+                                            b = true;
+                                            break;
+                                        }
+                                    }
+                                    if (!b)
+                                        newdata++;
+                                }
+                            } else {
+                                newdata = what;
+                            }
+                        }
+                        lvNewsData.clear(); // 先清除原来的数据
+                        lvNewsData.addAll(nlist.getNewslist());
                         break;
+                    // TODO
                 }
+//                if (actiontype == UIHelper.LISTVIEW_ACTION_REFRESH) {
+//                    // 提示新加载数据
+//                    if (newdata > 0) {
+//                        NewDataToast
+//                                .makeText(
+//                                        this,
+//                                        getString(R.string.new_data_toast_message,
+//                                                newdata), appContext.isAppSound())
+//                                .show();
+//                    } else {
+//                        NewDataToast.makeText(this,
+//                                getString(R.string.new_data_toast_none), false)
+//                                .show();
+//                    }
+//                }
                 break;
         }
-
+        return notice;
     }
 
 
