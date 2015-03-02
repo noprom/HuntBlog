@@ -17,6 +17,7 @@ import com.noprom.app.R;
 import com.noprom.app.adapter.ListViewNewsAdapter;
 import com.noprom.app.bean.News;
 import com.noprom.app.bean.Notice;
+import com.noprom.app.common.UIHelper;
 import com.noprom.app.widget.PullToRefreshListView;
 
 import java.util.ArrayList;
@@ -128,8 +129,19 @@ public class MainNewsFragment extends Fragment {
     private Notice handleLvData(int what,Object obj,int objtype,int actiontype){
         Notice notice = null;
         switch (actiontype){
+            case UIHelper.LISTVIEW_ACTION_INIT:
+            case UIHelper.LISTVIEW_ACTION_REFRESH:
+            case UIHelper.LISTVIEW_ACTION_CHANGE_CATALOG:
+                int newdata = 0;    // 新加载数据，只有刷新动作才会使用到
+                switch (objtype){
+                    // 新闻数据
+                    case UIHelper.LISTVIEW_DATATYPE_NEWS:
 
+                        break;
+                }
+                break;
         }
+
     }
 
 
