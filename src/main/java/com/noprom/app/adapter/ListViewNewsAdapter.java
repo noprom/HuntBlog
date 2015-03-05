@@ -1,16 +1,18 @@
 package com.noprom.app.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+<<<<<<< HEAD
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.noprom.app.R;
 import com.noprom.app.bean.News;
 import com.noprom.app.common.StringUtils;
+=======
+>>>>>>> parent of 4c8ab42... 【新增】listview_item and some dimens
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ import java.util.List;
  * @version 1.0
  *          Created by noprom on 2015/3/2.
  */
+<<<<<<< HEAD
 public class ListViewNewsAdapter extends BaseAdapter {
     private Context mContext;// 上下文
     private List<News> listItems;// 数据集合
@@ -47,10 +50,15 @@ public class ListViewNewsAdapter extends BaseAdapter {
         this.itemViewResource = resource;
         this.listItems = data;
     }
+=======
+public class ListViewNewsAdapter extends BaseAdapter{
+    private Context mContext;   // 上下文
+    private List
+>>>>>>> parent of 4c8ab42... 【新增】listview_item and some dimens
 
     @Override
     public int getCount() {
-        return listItems.size();
+        return 0;
     }
 
     @Override
@@ -60,18 +68,12 @@ public class ListViewNewsAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return position;
+        return 0;
     }
 
-    /**
-     * ListView Item设置
-     * @param position
-     * @param convertView
-     * @param parent
-     * @return
-     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+<<<<<<< HEAD
 
         //自定义视图
         ListItemView listItemView = null;
@@ -107,5 +109,8 @@ public class ListViewNewsAdapter extends BaseAdapter {
             listItemView.flag.setVisibility(View.GONE);
 
         return convertView;
+=======
+        return null;
+>>>>>>> parent of 4c8ab42... 【新增】listview_item and some dimens
     }
 }
