@@ -3,13 +3,9 @@
              android:layout_height="match_parent">
 
 
-    <!--<com.noprom.app.widget.PullToRefreshListView-->
-        <!--android:id="@+id/listview_news"-->
-        <!--style="@style/widget_listview"/>-->
-    <TextView
-        android:text="资讯"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <com.noprom.app.widget.PullToRefreshListView
+        android:id="@+id/listview_news"
+        style="@style/widget_listview"/>
 
 
 </LinearLayout>
