@@ -4,9 +4,10 @@ import java.io.Serializable;
 
 /**
  * 实体基类：实现序列化
- * @author liux (http://my.oschina.net/liux)
+ *
+ * @author noprom (http://github.com/noprom)
  * @version 1.0
- * @created 2012-3-21
+ *          Created by noprom on 2015/3/5.
  */
 public abstract class Base implements Serializable {
 
