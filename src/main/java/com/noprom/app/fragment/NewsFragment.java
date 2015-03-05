@@ -7,10 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.noprom.app.AppContext;
 import com.noprom.app.AppException;
@@ -19,6 +22,7 @@ import com.noprom.app.adapter.ListViewNewsAdapter;
 import com.noprom.app.bean.News;
 import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Notice;
+import com.noprom.app.common.StringUtils;
 import com.noprom.app.common.UIHelper;
 import com.noprom.app.widget.PullToRefreshListView;
 
@@ -34,6 +38,7 @@ import java.util.List;
  *          Created by noprom on 2014-2-25.
  */
 public class NewsFragment extends Fragment {
+    private final String TAG = "NewsFragment";
 
     private ListViewNewsAdapter lvNewsAdapter;
     private List<News> lvNewsData = new ArrayList<News>();
@@ -67,71 +72,73 @@ public class NewsFragment extends Fragment {
         lvNews = (PullToRefreshListView) lvNews_root.findViewById(R.id.listview_news);
         lvNews.addFooterView(lvNews_footer);// 添加底部视图 必须在setAdapter前
         lvNews.setAdapter(lvNewsAdapter);
-//        lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            public void onItemClick(AdapterView<?> parent, View view,
-//                                    int position, long id) {
-//                // 点击头部、底部栏无效
-//                if (position == 0 || view == lvNews_footer)
-//                    return;
-//
-//                News news = null;
-//                // 判断是否是TextView
-//                if (view instanceof TextView) {
-//                    news = (News) view.getTag();
-//                } else {
-//                    TextView tv = (TextView) view
-//                            .findViewById(R.id.news_listitem_title);
-//                    news = (News) tv.getTag();
-//                }
-//                if (news == null)
-//                    return;
-//
-//                // 跳转到新闻详情
+        // 每一项的点击事件
+        lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                // 点击头部、底部栏无效
+                if (position == 0 || view == lvNews_footer)
+                    return;
+
+                News news = null;
+                // 判断是否是TextView
+                if (view instanceof TextView) {
+                    news = (News) view.getTag();
+                } else {
+                    TextView tv = (TextView) view
+                            .findViewById(R.id.news_listitem_title);
+                    news = (News) tv.getTag();
+                }
+                if (news == null)
+                    return;
+
+                // 跳转到新闻详情
+                Toast.makeText(getActivity(),"View = "+view+",position = "+position+",id = "+id,Toast.LENGTH_LONG).show();
 //                UIHelper.showNewsRedirect(view.getContext(), news);
-//            }
-//        });
-//        lvNews.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//                lvNews.onScrollStateChanged(view, scrollState);
-//
-//                // 数据为空--不用继续下面代码了
-//                if (lvNewsData.isEmpty())
-//                    return;
-//
-//                // 判断是否滚动到底部
-//                boolean scrollEnd = false;
-//                try {
-//                    if (view.getPositionForView(lvNews_footer) == view
-//                            .getLastVisiblePosition())
-//                        scrollEnd = true;
-//                } catch (Exception e) {
-//                    scrollEnd = false;
-//                }
-//
-//                int lvDataState = StringUtils.toInt(lvNews.getTag());
-//                if (scrollEnd && lvDataState == UIHelper.LISTVIEW_DATA_MORE) {
-//                    lvNews.setTag(UIHelper.LISTVIEW_DATA_LOADING);
-//                    lvNews_foot_more.setText(R.string.load_ing);
-//                    lvNews_foot_progress.setVisibility(View.VISIBLE);
-//                    // 当前pageIndex
-//                    int pageIndex = lvNewsSumData / AppContext.PAGE_SIZE;
-//                    loadLvNewsData(curNewsCatalog, pageIndex, lvNewsHandler,
-//                            UIHelper.LISTVIEW_ACTION_SCROLL);
-//                }
-//            }
-//
-//            public void onScroll(AbsListView view, int firstVisibleItem,
-//                                 int visibleItemCount, int totalItemCount) {
-//                lvNews.onScroll(view, firstVisibleItem, visibleItemCount,
-//                        totalItemCount);
-//            }
-//        });
-//        lvNews.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
-//            public void onRefresh() {
-//                loadLvNewsData(curNewsCatalog, 0, lvNewsHandler,
-//                        UIHelper.LISTVIEW_ACTION_REFRESH);
-//            }
-//        });
+            }
+        });
+        lvNews.setOnScrollListener(new AbsListView.OnScrollListener() {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                lvNews.onScrollStateChanged(view, scrollState);
+
+                // 数据为空--不用继续下面代码了
+                if (lvNewsData.isEmpty())
+                    return;
+
+                // 判断是否滚动到底部
+                boolean scrollEnd = false;
+                try {
+                    if (view.getPositionForView(lvNews_footer) == view
+                            .getLastVisiblePosition())
+                        scrollEnd = true;
+                } catch (Exception e) {
+                    scrollEnd = false;
+                }
+
+                int lvDataState = StringUtils.toInt(lvNews.getTag());
+                if (scrollEnd && lvDataState == UIHelper.LISTVIEW_DATA_MORE) {
+                    lvNews.setTag(UIHelper.LISTVIEW_DATA_LOADING);
+                    lvNews_foot_more.setText(R.string.load_ing);
+                    lvNews_foot_progress.setVisibility(View.VISIBLE);
+                    // 当前pageIndex
+                    int pageIndex = lvNewsSumData / AppContext.PAGE_SIZE;
+                    loadLvNewsData(curNewsCatalog, pageIndex, lvNewsHandler,
+                            UIHelper.LISTVIEW_ACTION_SCROLL);
+                }
+            }
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                lvNews.onScroll(view, firstVisibleItem, visibleItemCount,
+                        totalItemCount);
+            }
+        });
+        lvNews.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener() {
+            public void onRefresh() {
+                loadLvNewsData(curNewsCatalog, 0, lvNewsHandler,
+                        UIHelper.LISTVIEW_ACTION_REFRESH);
+            }
+        });
 
         appContext = (AppContext) getActivity().getApplication();
         this.initNewsListData();

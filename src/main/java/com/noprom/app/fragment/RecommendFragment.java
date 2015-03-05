@@ -16,7 +16,7 @@ import com.noprom.app.R;
  *          Created by noprom on 2014-2-25.
  */
 public class RecommendFragment extends Fragment {
-
+    private final String TAG = "RecommendFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -37,6 +37,8 @@ import java.util.List;
 
 public class MainActivity extends ActionBarActivity implements NavigationLiveoListener {
 
+    private final String TAG = "MainActivity";
+
     // 主布局相关控件开始
     public TextView mUserName;
     public TextView mUserEmail;

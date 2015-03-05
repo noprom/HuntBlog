@@ -16,6 +16,7 @@ import com.noprom.app.R;
  *          Created by noprom on 2014-2-25.
  */
 public class HotNewsFragment extends Fragment {
+    private final String TAG = "HotNewsFragment";
 
 
     @Override

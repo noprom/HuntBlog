@@ -29,6 +29,7 @@ import java.util.List;
  *          Created by noprom on 2014-2-25.
  */
 public class MainFragment extends Fragment {
+    private final String TAG = "MainFragment";
 
     private boolean mSearchCheck;
     private ViewPager mViewPager;
