@@ -53,10 +53,10 @@ public class MainFragment extends Fragment {
      */
     private void initView() {
         mFragments = new ArrayList<Fragment>();
-        Fragment mNewsFragment = new MainNewsFragment();
-        Fragment mHotNewsFragment = new MainHotNewsFragment();
-        Fragment mBlogFragment = new MainBlogFragment();
-        Fragment mRecommendFragment = new MainRecommendFragment();
+        Fragment mNewsFragment = new NewsFragment();
+        Fragment mHotNewsFragment = new HotNewsFragment();
+        Fragment mBlogFragment = new BlogFragment();
+        Fragment mRecommendFragment = new RecommendFragment();
         mFragments.add(mNewsFragment);
         mFragments.add(mHotNewsFragment);
         mFragments.add(mBlogFragment);

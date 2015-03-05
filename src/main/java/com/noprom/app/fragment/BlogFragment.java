@@ -15,13 +15,13 @@ import com.noprom.app.R;
  * @version 1.0
  *          Created by noprom on 2014-2-25.
  */
-public class MainBlogFragment extends Fragment {
+public class BlogFragment extends Fragment {
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main_blog, container, false);
+        return inflater.inflate(R.layout.fragment_blog, container, false);
     }
 
 }

@@ -96,6 +96,9 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
         // 网络连接判断
 
 
+
+
+
         // 初始化主布局控件
         this.initDrawerLayout(savedInstanceState);
 

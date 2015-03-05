@@ -33,7 +33,7 @@ import java.util.List;
  * @version 1.0
  *          Created by noprom on 2014-2-25.
  */
-public class MainNewsFragment extends Fragment {
+public class NewsFragment extends Fragment {
 
     private View lvNews_footer;
     private TextView lvNews_foot_more;
@@ -53,6 +53,7 @@ public class MainNewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+<<<<<<< HEAD:src/main/java/com/noprom/app/fragment/MainNewsFragment.java
         lvNews_root = (ListView) inflater.inflate(R.layout.fragment_main_news, container, false);
 //        lvNewsAdapter = new ListViewNewsAdapter(getActivity(), lvNewsData, R.layout.news_listitem);
 //        lvNews_footer = inflater.inflate(R.layout.listview_footer, null);
@@ -106,6 +107,9 @@ public class MainNewsFragment extends Fragment {
         if (lvNewsData.isEmpty()) {
             loadLvNewsData(curNewsCatalog, 0, lvNewsHandler, UIHelper.LISTVIEW_ACTION_INIT);
         }
+=======
+        return inflater.inflate(R.layout.fragment_news, container, false);
+>>>>>>> parent of c2da3ab... 【新增】实体基类：实现序列化:src/main/java/com/noprom/app/fragment/NewsFragment.java
     }
 
     /**

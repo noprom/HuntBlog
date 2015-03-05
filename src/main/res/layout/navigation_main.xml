@@ -19,7 +19,6 @@
 
         <include layout="@layout/navigation_toolbar" />
         <include layout="@layout/navigation_container" />
-        <include layout="@layout/main_footer"/>
     </LinearLayout>
 
     <com.noprom.app.widget.navigationliveo.ScrimInsetsFrameLayout
