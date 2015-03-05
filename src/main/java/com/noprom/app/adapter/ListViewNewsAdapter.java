@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author noprom (http://github.com/noprom)
  * @version 1.0
- *          Created by noprom on 2015/3/2.
+ *          Created by noprom on 2015/3/5.
  */
 public class ListViewNewsAdapter extends BaseAdapter {
     private Context mContext;// 上下文
@@ -37,21 +37,21 @@ public class ListViewNewsAdapter extends BaseAdapter {
 
     /**
      * 实例化Adapter
+     *
      * @param context
      * @param data
      * @param resource
      */
-    public ListViewNewsAdapter(Context context, List<News> data,int resource) {
+    public ListViewNewsAdapter(Context context, List<News> data, int resource) {
         this.mContext = context;
-        this.listContainer = LayoutInflater.from(context);	//创建视图容器并设置上下文
+        this.listContainer = LayoutInflater.from(context);    //创建视图容器并设置上下文
         this.itemViewResource = resource;
         this.listItems = data;
     }
-public class ListViewNewsAdapter extends BaseAdapter{
-    private Context mContext;   // 上下文
-    private List
+
 
     @Override
+
     public int getCount() {
         return 0;
     }
@@ -71,20 +71,20 @@ public class ListViewNewsAdapter extends BaseAdapter{
 
         //自定义视图
         ListItemView listItemView = null;
-        if(convertView == null){
+        if (convertView == null) {
             // 获取list_item布局文件的视图
-            convertView = listContainer.inflate(this.itemViewResource,null);
+            convertView = listContainer.inflate(this.itemViewResource, null);
             listItemView = new ListItemView();
             // 获取控件对象
-            listItemView.title = (TextView)convertView.findViewById(R.id.news_listitem_title);
-            listItemView.author = (TextView)convertView.findViewById(R.id.news_listitem_author);
-            listItemView.count= (TextView)convertView.findViewById(R.id.news_listitem_commentCount);
-            listItemView.date= (TextView)convertView.findViewById(R.id.news_listitem_date);
-            listItemView.flag= (ImageView)convertView.findViewById(R.id.news_listitem_flag);
+            listItemView.title = (TextView) convertView.findViewById(R.id.news_listitem_title);
+            listItemView.author = (TextView) convertView.findViewById(R.id.news_listitem_author);
+            listItemView.count = (TextView) convertView.findViewById(R.id.news_listitem_commentCount);
+            listItemView.date = (TextView) convertView.findViewById(R.id.news_listitem_date);
+            listItemView.flag = (ImageView) convertView.findViewById(R.id.news_listitem_flag);
 
             // 设置控件集到convertView
             convertView.setTag(listItemView);
-        }else{
+        } else {
             listItemView = (ListItemView) convertView.getTag();
         }
 
@@ -95,13 +95,14 @@ public class ListViewNewsAdapter extends BaseAdapter{
         listItemView.title.setTag(news);//设置隐藏参数(实体类)
         listItemView.author.setText(news.getAuthor());
         listItemView.date.setText(StringUtils.friendly_time(news.getPubDate()));
-        listItemView.count.setText(news.getCommentCount()+"");
+        listItemView.count.setText(news.getCommentCount() + "");
 
-        if(StringUtils.isToday(news.getPubDate()))
+        if (StringUtils.isToday(news.getPubDate()))
             listItemView.flag.setVisibility(View.VISIBLE);
         else
             listItemView.flag.setVisibility(View.GONE);
 
         return convertView;
     }
+
 }

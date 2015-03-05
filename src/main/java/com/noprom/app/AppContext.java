@@ -11,8 +11,6 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.noprom.app.api.ApiClient;
-import com.noprom.app.bean.NewsList;
-import com.noprom.app.bean.Notice;
 import com.noprom.app.common.StringUtils;
 import com.noprom.app.common.UIHelper;
 
@@ -197,31 +195,31 @@ public class AppContext extends Application {
      * @return 新闻实体
      * @throws AppException 异常
      */
-    public NewsList getNewsList(int catalog, int pageIndex, boolean isRefresh) throws AppException {
-        NewsList list = null;
-        String key = "newslist_"+catalog+"_"+pageIndex+"_"+PAGE_SIZE;
-        if(isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
-            try{
-                list = ApiClient.getNewsList(this, catalog, pageIndex, PAGE_SIZE);
-                if(list != null && pageIndex == 0){
-                    Notice notice = list.getNotice();
-                    list.setNotice(null);
-                    list.setCacheKey(key);
-                    saveObject(list, key);
-                    list.setNotice(notice);
-                }
-            }catch(AppException e){
-                list = (NewsList)readObject(key);
-                if(list == null)
-                    throw e;
-            }
-        } else {
-            list = (NewsList)readObject(key);
-            if(list == null)
-                list = new NewsList();
-        }
-        return list;
-    }
+//    public NewsList getNewsList(int catalog, int pageIndex, boolean isRefresh) throws AppException {
+//        NewsList list = null;
+//        String key = "newslist_"+catalog+"_"+pageIndex+"_"+PAGE_SIZE;
+//        if(isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
+//            try{
+//                list = ApiClient.getNewsList(this, catalog, pageIndex, PAGE_SIZE);
+//                if(list != null && pageIndex == 0){
+//                    Notice notice = list.getNotice();
+//                    list.setNotice(null);
+//                    list.setCacheKey(key);
+//                    saveObject(list, key);
+//                    list.setNotice(notice);
+//                }
+//            }catch(AppException e){
+//                list = (NewsList)readObject(key);
+//                if(list == null)
+//                    throw e;
+//            }
+//        } else {
+//            list = (NewsList)readObject(key);
+//            if(list == null)
+//                list = new NewsList();
+//        }
+//        return list;
+//    }
 
     /**
      * 未登录或修改密码后的处理
