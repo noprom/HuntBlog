@@ -45,7 +45,7 @@
 
     <color name="listitem_transparent">#00000000</color>
     <color name="listitem_black">#ff000000</color>
-    <color name="listitem_white">#ffffffff</color>
+    <color name="listitem_white">#fff9f9f9</color>
     <color name="listitem_blue">#0e5986</color>
     <color name="listitem_gray">#ff9da19e</color>
     <color name="listitem_green">#ffe3ffc6</color>
@@ -53,6 +53,7 @@
     <color name="listitem_yellow">#fffaffbf</color>
     <color name="fff1f2f3">#fff1f2f3</color>
     <color name="ff40ab54">#ff40ab54</color>
+    <color name="listitem_bottom">#ffE0E0E0</color>
 
     <!-- 二维码扫描颜色值 -->
     <color name="contents_text">#ff000000</color>

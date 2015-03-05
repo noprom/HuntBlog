@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>  
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:orientation="vertical" 
+    android:orientation="vertical"
+    android:background="@color/listitem_white"
     android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants" 
+    android:descendantFocusability="blocksDescendants"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
     android:paddingTop="8dip"
