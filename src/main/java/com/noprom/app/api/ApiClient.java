@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 
 import com.noprom.app.AppContext;
 import com.noprom.app.AppException;
+import com.noprom.app.bean.BlogList;
 import com.noprom.app.bean.News;
 import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Result;
@@ -685,21 +686,21 @@ public class ApiClient {
      * @param pageSize
      * @return
      */
-//    public static BlogList getBlogList(AppContext appContext, final String type, final int pageIndex, final int pageSize) throws AppException {
-//        String newUrl = _MakeURL(URLs.BLOG_LIST, new HashMap<String, Object>(){{
-//            put("type", type);
-//            put("pageIndex", pageIndex);
-//            put("pageSize", pageSize);
-//        }});
-//
-//        try{
-//            return BlogList.parse(http_get(appContext, newUrl));
-//        }catch(Exception e){
-//            if(e instanceof AppException)
-//                throw (AppException)e;
-//            throw AppException.network(e);
-//        }
-//    }
+    public static BlogList getBlogList(AppContext appContext, final String type, final int pageIndex, final int pageSize) throws AppException {
+        String newUrl = _MakeURL(URLs.BLOG_LIST, new HashMap<String, Object>(){{
+            put("type", type);
+            put("pageIndex", pageIndex);
+            put("pageSize", pageSize);
+        }});
+
+        try{
+            return BlogList.parse(http_get(appContext, newUrl));
+        }catch(Exception e){
+            if(e instanceof AppException)
+                throw (AppException)e;
+            throw AppException.network(e);
+        }
+    }
 
     /**
      * 删除某用户的博客

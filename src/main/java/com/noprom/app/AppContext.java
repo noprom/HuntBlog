@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.noprom.app.api.ApiClient;
+import com.noprom.app.bean.BlogList;
 import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Notice;
 import com.noprom.app.common.StringUtils;
@@ -219,6 +220,40 @@ public class AppContext extends Application {
             list = (NewsList)readObject(key);
             if(list == null)
                 list = new NewsList();
+        }
+        return list;
+    }
+
+
+    /**
+     * 博客列表
+     * @param type 推荐：recommend 最新：latest
+     * @param pageIndex
+     * @return
+     * @throws AppException
+     */
+    public BlogList getBlogList(String type, int pageIndex, boolean isRefresh) throws AppException {
+        BlogList list = null;
+        String key = "bloglist_"+type+"_"+pageIndex+"_"+PAGE_SIZE;
+        if(isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
+            try{
+                list = ApiClient.getBlogList(this, type, pageIndex, PAGE_SIZE);
+                if(list != null && pageIndex == 0){
+                    Notice notice = list.getNotice();
+                    list.setNotice(null);
+                    list.setCacheKey(key);
+                    saveObject(list, key);
+                    list.setNotice(notice);
+                }
+            }catch(AppException e){
+                list = (BlogList)readObject(key);
+                if(list == null)
+                    throw e;
+            }
+        } else {
+            list = (BlogList)readObject(key);
+            if(list == null)
+                list = new BlogList();
         }
         return list;
     }
