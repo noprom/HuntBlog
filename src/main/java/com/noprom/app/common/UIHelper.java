@@ -18,8 +18,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.noprom.app.AppContext;
 import com.noprom.app.AppManager;
 import com.noprom.app.R;
+import com.noprom.app.bean.Notice;
 import com.noprom.app.ui.MainActivity;
 
 import java.util.regex.Pattern;
@@ -87,7 +89,7 @@ public class UIHelper {
 	 * 显示登录页面
 	 * 
 	 */
-//	public static void showLoginDialog(Context context) {
+	public static void showLoginDialog(Context context) {
 //		Intent intent = new Intent(context, LoginDialog.class);
 //		if (context instanceof Main)
 //			intent.putExtra("LOGINTYPE", LoginDialog.LOGIN_MAIN);
@@ -96,7 +98,7 @@ public class UIHelper {
 //		else
 //			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //		context.startActivity(intent);
-//	}
+	}
 
 	/**
 	 * 显示新闻详情
@@ -1092,16 +1094,16 @@ public class UIHelper {
 	 * @param context
 	 * @param notice
 	 */
-//	public static void sendBroadCast(Context context, Notice notice) {
-//		if (!((AppContext) context.getApplicationContext()).isLogin() || notice == null)
-//			return;
-//		Intent intent = new Intent("net.oschina.app.action.APPWIDGET_UPDATE");
-//		intent.putExtra("atmeCount", notice.getAtmeCount());
-//		intent.putExtra("msgCount", notice.getMsgCount());
-//		intent.putExtra("reviewCount", notice.getReviewCount());
-//		intent.putExtra("newFansCount", notice.getNewFansCount());
-//		context.sendBroadcast(intent);
-//	}
+	public static void sendBroadCast(Context context, Notice notice) {
+		if (!((AppContext) context.getApplicationContext()).isLogin() || notice == null)
+			return;
+		Intent intent = new Intent("net.oschina.app.action.APPWIDGET_UPDATE");
+		intent.putExtra("atmeCount", notice.getAtmeCount());
+		intent.putExtra("msgCount", notice.getMsgCount());
+		intent.putExtra("reviewCount", notice.getReviewCount());
+		intent.putExtra("newFansCount", notice.getNewFansCount());
+		context.sendBroadcast(intent);
+	}
 
 	/**
      *

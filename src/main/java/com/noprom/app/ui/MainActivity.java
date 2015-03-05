@@ -25,9 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.noprom.app.AppContext;
 import com.noprom.app.R;
-import com.noprom.app.common.DoubleClickExitHelper;
 import com.noprom.app.fragment.MainFragment;
 import com.noprom.app.widget.navigationliveo.NavigationLiveoAdapter;
 import com.noprom.app.widget.navigationliveo.NavigationLiveoList;
@@ -81,20 +79,20 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
 
     // 主布局相关控件结束
 
-    private AppContext appContext;// 全局Conntext
-
-    private DoubleClickExitHelper mDoubleClickExitHelper;
+//    private AppContext appContext;// 全局Conntext
+//
+//    private DoubleClickExitHelper mDoubleClickExitHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_main);
 
-        mDoubleClickExitHelper = new DoubleClickExitHelper(this);
+//        mDoubleClickExitHelper = new DoubleClickExitHelper(this);
 
         // TODO handle broadcast receiver
 
-        appContext = (AppContext) getApplication();
+//        appContext = (AppContext) getApplication();
         // 网络连接判断
 
 

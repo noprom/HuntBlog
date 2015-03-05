@@ -15,9 +15,22 @@ import java.util.List;
  */
 public class FileUtils {
 
-
-
-
+    /**
+     * 清空一个文件夹
+     */
+    public static void clearFileWithPath(String filePath) {
+        List<File> files = FileUtils.listPathFiles(filePath);
+        if (files.isEmpty()) {
+            return;
+        }
+        for (File f : files) {
+            if (f.isDirectory()) {
+                clearFileWithPath(f.getAbsolutePath());
+            } else {
+                f.delete();
+            }
+        }
+    }
 
 
     /**
