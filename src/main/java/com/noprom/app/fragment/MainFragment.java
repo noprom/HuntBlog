@@ -41,9 +41,9 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-//        mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager_main);
-//        mTabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.indicator_main);
-//        initView();
+        mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager_main);
+        mTabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.indicator_main);
+        initView();
         rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         return rootView;
     }
