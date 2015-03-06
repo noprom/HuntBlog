@@ -1,5 +1,6 @@
 package com.noprom.app.fragment;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,7 +37,7 @@ import java.util.List;
  * @version 1.0
  *          Created by noprom on 2014-2-25.
  */
-public class NewsFragment extends BaseNewsFragment {
+public class NewsFragment extends Fragment {
     private final String TAG = "NewsFragment";
 
     private ListViewNewsAdapter lvNewsAdapter;
@@ -166,7 +167,7 @@ public class NewsFragment extends BaseNewsFragment {
      * @param adapter
      * @return
      */
-    private Handler getLvHandler2(final PullToRefreshListView lv,
+    private Handler getLvHandler(final PullToRefreshListView lv,
                                  final BaseAdapter adapter, final TextView more,
                                  final ProgressBar progress, final int pageSize) {
         return new Handler() {
