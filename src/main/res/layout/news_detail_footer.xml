@@ -25,12 +25,12 @@
                 android:gravity="center">
 
                 <ImageButton
-                    android:id="@+id/news_detail_btn_switch"
+                    android:id="@+id/news_detail_footbar_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
 
-                    android:background="@drawable/news_detail_btn_switch"/>
+                    android:background="@drawable/news_detail_footbar_switch"/>
             </LinearLayout>
 
             <LinearLayout
@@ -41,11 +41,11 @@
                 android:gravity="center">
 
                 <ImageButton
-                    android:id="@+id/news_detail_btn_comment"
+                    android:id="@+id/news_detail_footbar_comment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/news_detail_btn_comment"/>
+                    android:background="@drawable/news_detail_footbar_comment"/>
             </LinearLayout>
 
             <LinearLayout
@@ -56,12 +56,12 @@
                 android:gravity="center">
 
                 <ImageButton
-                    android:id="@+id/news_detail_btn_write"
+                    android:id="@+id/news_detail_footbar_write"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/news_detail_btn_write"/>
+                    android:background="@drawable/news_detail_footbar_write"/>
             </LinearLayout>
 
             <LinearLayout
@@ -72,12 +72,12 @@
                 android:gravity="center">
 
                 <ImageButton
-                    android:id="@+id/news_detail_btn_star"
+                    android:id="@+id/news_detail_footbar_star"
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/news_detail_btn_star"/>
+                    android:background="@drawable/news_detail_footbar_star"/>
             </LinearLayout>
 
             <LinearLayout
@@ -88,11 +88,11 @@
                 android:gravity="center">
 
                 <ImageButton
-                    android:id="@+id/news_detail_btn_share"
+                    android:id="@+id/news_detail_footbar_share"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@drawable/news_detail_btn_share"/>
+                    android:background="@drawable/news_detail_footbar_share"/>
             </LinearLayout>
 
 
