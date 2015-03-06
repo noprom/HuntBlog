@@ -27,7 +27,7 @@ public class SettingsActivity extends ActionBarActivity {
             protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.fragment_main);
-
+//
 //                TextView mTxtTitle = (TextView) findViewById(R.id.txtTitle);
 //                mTxtTitle.setText(getString(R.string.settings));
 

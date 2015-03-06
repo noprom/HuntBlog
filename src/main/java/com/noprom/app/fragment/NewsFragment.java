@@ -1,5 +1,6 @@
 package com.noprom.app.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +26,7 @@ import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Notice;
 import com.noprom.app.common.StringUtils;
 import com.noprom.app.common.UIHelper;
+import com.noprom.app.ui.NewsDetail;
 import com.noprom.app.widget.PullToRefreshListView;
 
 import java.util.ArrayList;
@@ -98,6 +100,8 @@ public class NewsFragment extends Fragment {
                 // 跳转到新闻详情
                 Toast.makeText(getActivity(),"View = "+view+",position = "+position+",id = "+id,Toast.LENGTH_LONG).show();
 //                UIHelper.showNewsRedirect(view.getContext(), news);
+                Intent intent = new Intent(getActivity(), NewsDetail.class);
+                startActivity(intent);
             }
         });
         lvNews.setOnScrollListener(new AbsListView.OnScrollListener() {

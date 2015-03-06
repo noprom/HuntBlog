@@ -21,23 +21,18 @@
     <string name="add">Add</string>
     <string name="search">Search</string>
     <string name="clear">""</string>
-
-
-
     <string name="header_not_created">Header was not created</string>
     <string name="custom_header_not_created">Custom header was not created</string>
     <string name="start_navigation_listener">You must start the NavigationListener in onInit() method of its main activity. Example: this.setNavigationListener(this);</string>
     <string name="title_null_or_empty">The title can not be null or empty</string>
     <string name="remove_selector_navigation">The option to remove the select is active. Please remove the removeSelectorNavigation method so you can use the setNewSelectorNavigation</string>
-    <string name="list_null_or_empty">List of null or empty names. Solution: mListNameItem = new ArrayList &#60;&#62; (); mListNameItem.add (position, R.string.name);</string>
+    <string name="list_null_or_empty">List of null or empty names. Solution: mListNameItem = new ArrayList &lt;> (); mListNameItem.add (position, R.string.name);</string>
     <string name="value_icon_should_be_0">The value of the icon for a subHeader item should be 0</string>
     <string name="enter_item_name_position">Enter the item name position </string>
     <!-- Toast -->
     <string name="open_user_profile">Open user profile</string>
     <string name="open_settings">Open settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
     <string name="main_menu_login">用户登录</string>
     <string name="main_menu_logout">注销登录</string>
     <string name="main_menu_myinfo">我的资料</string>
@@ -51,7 +46,6 @@
     <string name="main_menu_about">关于我们</string>
     <string name="main_menu_setting">系统设置</string>
     <string name="main_menu_exit">退出程序</string>
-
     <string name="frame_title_news_lastest">最新资讯</string>
     <string name="frame_title_news_blog">最新博客</string>
     <string name="frame_title_news_recommend">推荐阅读</string>
@@ -69,13 +63,11 @@
     <string name="frame_title_active_comment">评论</string>
     <string name="frame_title_active_myself">我自己</string>
     <string name="frame_title_active_message">留言</string>
-
     <string name="footbar_refresh">刷新</string>
     <string name="footbar_comment">评论</string>
     <string name="footbar_share">分享</string>
     <string name="footbar_favorite">收藏</string>
     <string name="footbar_more">更多</string>
-
     <string name="login_dialog_logo">开源中国</string>
     <string name="login_dialog_account">账号:</string>
     <string name="login_dialog_account_hint">输入账号/邮箱</string>
@@ -86,13 +78,11 @@
     <string name="login_dialog_rememberPW">记住密码:</string>
     <string name="login_dialog_autoLogin">自动登录:</string>
     <string name="login_dialog_rememberMe">记住我的登录信息</string>
-
     <string name="pull_to_refresh_pull_label">下拉可以刷新</string>
     <string name="pull_to_refresh_release_label">松开可以刷新</string>
     <string name="pull_to_refresh_refreshing_label">加载中...</string>
     <string name="pull_to_refresh_tap_label">下拉可以刷新</string>
     <string name="pull_to_refresh_update">最近更新：</string>
-
     <string name="news_detail_head_title">新闻正文</string>
     <string name="news_detail_lable_pub">发布于</string>
     <string name="question_detail_head_title">帖子正文</string>
@@ -106,21 +96,17 @@
     <string name="tweet_chatfooter_too_short">录音时间太短</string>
     <string name="message_detail_head_title">我和%s的对话</string>
     <string name="user_center_head_title">用户空间</string>
-
     <string name="user_friend_head_title">我的好友</string>
     <string name="user_friend_follower">关注(%d)</string>
     <string name="user_friend_fans">粉丝(%d)</string>
-
     <string name="comment_list_head_title">网友评论</string>
     <string name="comment_listitem_type">发布于</string>
     <string name="comment_pub_head_title">评论回复</string>
     <string name="comment_pub_content_hint">输入评论</string>
     <string name="comment_reply_title">---共有 %d 条评论---</string>
-
     <string name="img_from_camera">手机拍照</string>
     <string name="img_from_album">手机相册</string>
     <string name="ui_insert_image">插入图片</string>
-
     <string name="setting_head_title">系统设置</string>
     <string name="capture_head_title">扫一扫</string>
     <string name="msg_camera_framework_bug">抱歉，Android相机出现问题。您可能需要重启设备。</string>
@@ -129,5 +115,7 @@
     <string name="tab_buttom_explore">发现</string>
     <string name="tab_buttom_tweet">动弹</string>
     <string name="tab_buttom_all">综合</string>
+    <string name="title_activity_news_detail">NewsDetail</string>
+
 
 </resources>
