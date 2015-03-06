@@ -14,17 +14,17 @@
         android:orientation="vertical" >
 
         <ImageButton
-            android:id="@+id/tab_bottom_all"
+            android:id="@+id/id_tab_weixin_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00000000"
             android:clickable="false"
-            android:src="@drawable/widget_bar_news_nor" />
+            android:src="@drawable/tab_buttom_all" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_buttom_all"
+            android:text="综合"
             android:textColor="#16a230" />
     </LinearLayout>
 
@@ -37,7 +37,7 @@
         android:orientation="vertical" >
 
         <ImageButton
-            android:id="@+id/tab_bottom_tweet"
+            android:id="@+id/id_tab_frd_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00000000"
@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_buttom_tweet"
+            android:text="动弹"
             android:textColor="#16a230" />
     </LinearLayout>
     <LinearLayout
@@ -69,7 +69,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/main_footer_explore"
+        android:id="@+id/id_tab_address"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -77,7 +77,7 @@
         android:orientation="vertical" >
 
         <ImageButton
-            android:id="@+id/tab_buttom_explore"
+            android:id="@+id/id_tab_address_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00000000"
@@ -87,12 +87,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_buttom_explore"
+            android:text="发现"
             android:textColor="#16a230" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/main_footer_me"
+        android:id="@+id/id_tab_settings"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -100,7 +100,7 @@
         android:orientation="vertical" >
 
         <ImageButton
-            android:id="@+id/tab_buttom_me"
+            android:id="@+id/id_tab_settings_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#00000000"
@@ -110,7 +110,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_buttom_me"
+            android:text="设置"
             android:textColor="#16a230" />
     </LinearLayout>
 
