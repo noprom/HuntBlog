@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:background="#00000000"
             android:clickable="false"
-            android:src="@drawable/widget_bar_news_over" />
+            android:src="@drawable/tab_buttom_all" />
 
         <TextView
             android:layout_width="wrap_content"
