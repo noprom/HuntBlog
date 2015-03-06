@@ -22,15 +22,16 @@ import com.noprom.app.widget.viewpagerindicator.TabPageIndicator;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
- * 综合Tab 新闻资讯主Fragment
+ * 综合Tab TweetFragment
  *
  * @author noprom (http://github.com/noprom)
  * @version 1.0
  *          Created by noprom on 2014-2-25.
  */
-public class MainFragment extends Fragment {
-    private final String TAG = "MainFragment";
+public class TweetFragment extends Fragment {
+    private final String TAG = "TweetFragment";
 
     private boolean mSearchCheck;
     private ViewPager mViewPager;
@@ -42,7 +43,8 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d(TAG,"onCreateView");
+        Log.d(TAG, "onCreateView");
+
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         mViewPager = (ViewPager) rootView.findViewById(R.id.viewpager_main);
         mTabPageIndicator = (TabPageIndicator) rootView.findViewById(R.id.indicator_main);

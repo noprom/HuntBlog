@@ -125,4 +125,8 @@
     <string name="capture_head_title">扫一扫</string>
     <string name="msg_camera_framework_bug">抱歉，Android相机出现问题。您可能需要重启设备。</string>
     <string name="action_settings">设置</string>
+    <string name="tab_buttom_me">我</string>
+    <string name="tab_buttom_explore">发现</string>
+    <string name="tab_buttom_tweet">动弹</string>
+    <string name="tab_buttom_all">综合</string>
 </resources>

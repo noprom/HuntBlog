@@ -9,24 +9,31 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.noprom.app.R;
+import com.noprom.app.fragment.ExploreFragment;
 import com.noprom.app.fragment.MainFragment;
+import com.noprom.app.fragment.MeFragment;
+import com.noprom.app.fragment.TweetFragment;
 import com.noprom.app.widget.navigationliveo.NavigationLiveoAdapter;
 import com.noprom.app.widget.navigationliveo.NavigationLiveoList;
 import com.noprom.app.widget.navigationliveo.NavigationLiveoListener;
@@ -35,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements NavigationLiveoListener {
+public class MainActivity extends ActionBarActivity implements NavigationLiveoListener, View.OnClickListener {
 
     private final String TAG = "MainActivity";
 
@@ -85,35 +92,132 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
 //
 //    private DoubleClickExitHelper mDoubleClickExitHelper;
 
+    private LinearLayout mTabAll;
+    private LinearLayout mTabTweet;
+    private LinearLayout mTabExplore;
+    private LinearLayout mTabMe;
+
+    // 底部的ImageButton
+    private ImageButton mTabAllImg;
+    private ImageButton mTabTweetImg;
+    private ImageButton mTabExploreImg;
+    private ImageButton mTabMeImg;
+
+    // 四个Fragment
+    private Fragment mMainFragment;
+    private Fragment mTweetFragment;
+    private Fragment mExploreFragment;
+    private Fragment mMeFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_main);
 
 //        mDoubleClickExitHelper = new DoubleClickExitHelper(this);
-
         // TODO handle broadcast receiver
-
 //        appContext = (AppContext) getApplication();
         // 网络连接判断
 
-
-
-
-
         // 初始化主布局控件
         this.initDrawerLayout(savedInstanceState);
-
+        this.initFooterView();
     }
 
+    /**
+     * 初始化底部View
+     */
+    private void initFooterView() {
+        // Tabs
+        mTabAll = (LinearLayout) findViewById(R.id.main_footer_all);
+        mTabTweet = (LinearLayout) findViewById(R.id.main_footer_tweet);
+        mTabExplore = (LinearLayout) findViewById(R.id.main_footer_explore);
+        mTabMe = (LinearLayout) findViewById(R.id.main_footer_me);
 
+        // ImageButton
+        mTabAllImg = (ImageButton) findViewById(R.id.tab_bottom_all);
+        mTabTweetImg = (ImageButton) findViewById(R.id.tab_bottom_tweet);
+        mTabExploreImg = (ImageButton) findViewById(R.id.tab_buttom_explore);
+        mTabMeImg = (ImageButton) findViewById(R.id.tab_buttom_me);
 
+        // initEvents
+        mTabAll.setOnClickListener(this);
+        mTabTweet.setOnClickListener(this);
+        mTabExplore.setOnClickListener(this);
+        mTabMe.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        mTabAllImg.setImageResource(R.drawable.widget_bar_news_nor);
+        mTabTweetImg.setImageResource(R.drawable.widget_bar_tweet_nor);
+        mTabExploreImg.setImageResource(R.drawable.widget_bar_explore_nor);
+        mTabMeImg.setImageResource(R.drawable.widget_bar_me_nor);
+        switch (v.getId()) {
+            case R.id.main_footer_all:
+                setTab(0);
+                break;
+            case R.id.main_footer_tweet:
+                setTab(1);
+                break;
+            case R.id.main_footer_explore:
+                setTab(2);
+                break;
+            case R.id.main_footer_me:
+                setTab(3);
+                break;
+        }
+    }
+
+    /**
+     * 设置底部Tabs
+     *
+     * @param position
+     */
+    private void setTab(int position) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        //1.切换背景图片
+        //2.切换内容区域
+        switch (position) {
+            case 0:
+                mTabAllImg.setImageResource(R.drawable.widget_bar_news_over);
+                if (mMainFragment == null)
+                    mMainFragment = new MainFragment();
+                fragmentTransaction.replace(R.id.container, mMainFragment);
+                break;
+            case 1:
+                mTabTweetImg.setImageResource(R.drawable.widget_bar_tweet_over);
+                if (mTweetFragment == null)
+                    mTweetFragment = new TweetFragment();
+                fragmentTransaction.replace(R.id.container, mTweetFragment);
+                break;
+            case 2:
+                mTabExploreImg.setImageResource(R.drawable.widget_bar_explore_over);
+                if (mExploreFragment == null)
+                    mExploreFragment = new ExploreFragment();
+                fragmentTransaction.replace(R.id.container, mExploreFragment);
+
+                break;
+            case 3:
+                mTabMeImg.setImageResource(R.drawable.widget_bar_me_over);
+                if (mMeFragment == null)
+                    mMeFragment = new MeFragment();
+                fragmentTransaction.replace(R.id.container, mMeFragment);
+
+                break;
+        }
+
+        // 提交事务
+        fragmentTransaction.commit();
+    }
 
 
     /**
      * 初始化主布局控件
      */
-    private void initDrawerLayout(Bundle savedInstanceState){
+    private void initDrawerLayout(Bundle savedInstanceState) {
 
         // 设置当前所在的选项
         if (savedInstanceState != null) {
@@ -146,7 +250,7 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             try {
                 Resources.Theme theme = this.getTheme();
                 TypedArray typedArray = theme.obtainStyledAttributes(new int[]{android.R.attr.colorPrimary});
@@ -178,7 +282,7 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(mDrawerToggle != null) {
+        if (mDrawerToggle != null) {
             if (mDrawerToggle.onOptionsItemSelected(item)) {
                 return true;
             }
@@ -202,12 +306,13 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
         }
     }
 
+
     /**
      * ActionBarDrawer处理事件
      */
     private class ActionBarDrawerToggleCompat extends ActionBarDrawerToggle {
 
-        public ActionBarDrawerToggleCompat(Activity activity, DrawerLayout drawerLayout, Toolbar toolbar){
+        public ActionBarDrawerToggleCompat(Activity activity, DrawerLayout drawerLayout, Toolbar toolbar) {
             super(activity, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         }
 
@@ -266,16 +371,16 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
         }
     };
 
-    private void mountListNavigation(Bundle savedInstanceState){
+    private void mountListNavigation(Bundle savedInstanceState) {
         createUserDefaultHeader();
         setUserInformation();
         onInt(savedInstanceState);
         setAdapterNavigation();
     }
 
-    private void setAdapterNavigation(){
+    private void setAdapterNavigation() {
 
-        if (mNavigationListener == null){
+        if (mNavigationListener == null) {
             throw new RuntimeException(getString(R.string.start_navigation_listener));
         }
 
@@ -311,7 +416,7 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
     /**
      * 用户信息设置
      */
-    public void setUserInformation(){
+    public void setUserInformation() {
         this.mUserName.setText("Rudson Lima");
         this.mUserEmail.setText("rudsonlive@gmail.com");
         this.mUserPhoto.setImageResource(R.drawable.ic_rudsonlive);
@@ -320,6 +425,7 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
 
     /**
      * 创建左侧的ListItems
+     *
      * @param savedInstanceState onCreate(Bundle savedInstanceState).
      */
     public void onInt(Bundle savedInstanceState) {
@@ -369,12 +475,13 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
 
     /**
      * Set adapter attributes
-     * @param listNameItem list name item.
-     * @param listIcon list icon item.
-     * @param listItensHeader list header name item.
+     *
+     * @param listNameItem     list name item.
+     * @param listIcon         list icon item.
+     * @param listItensHeader  list header name item.
      * @param sparceItensCount sparce count item.
      */
-    public void setNavigationAdapter(List<String> listNameItem, List<Integer> listIcon, List<Integer> listItensHeader, SparseIntArray sparceItensCount){
+    public void setNavigationAdapter(List<String> listNameItem, List<Integer> listIcon, List<Integer> listItensHeader, SparseIntArray sparceItensCount) {
         this.mListNameItem = listNameItem;
         this.mListIcon = listIcon;
         this.mListHeader = listItensHeader;
@@ -383,228 +490,252 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
 
     /**
      * Set adapter attributes
+     *
      * @param listNameItem list name item.
-     * @param listIcon list icon item.
+     * @param listIcon     list icon item.
      */
-    public void setNavigationAdapter(List<String> listNameItem, List<Integer> listIcon){
+    public void setNavigationAdapter(List<String> listNameItem, List<Integer> listIcon) {
         this.mListNameItem = listNameItem;
         this.mListIcon = listIcon;
     }
 
     /**
      * Starting listener navigation
+     *
      * @param navigationListener listener.
      */
-    public void setNavigationListener(NavigationLiveoListener navigationListener){
+    public void setNavigationListener(NavigationLiveoListener navigationListener) {
         this.mNavigationListener = navigationListener;
-    };
+    }
+
+    ;
 
     /**
      * First item of the position selected from the list
+     *
      * @param position ...
      */
-    public void setDefaultStartPositionNavigation(int position){
+    public void setDefaultStartPositionNavigation(int position) {
         this.mCurrentPosition = position;
     }
 
     /**
      * 设置当前所在的选项
+     *
      * @param position
      */
-    private void setCurrentPosition(int position){
+    private void setCurrentPosition(int position) {
         this.mCurrentPosition = position;
     }
 
     /**
      * get position in the last clicked item list
      */
-    public int getCurrentPosition(){
+    public int getCurrentPosition() {
         return this.mCurrentPosition;
     }
 
 
-
     /**
      * Select item clicked
+     *
      * @param position item position.
-     * @param checked true to check.
+     * @param checked  true to check.
      */
-    public void setCheckedItemNavigation(int position, boolean checked){
+    public void setCheckedItemNavigation(int position, boolean checked) {
         this.mNavigationAdapter.resetarCheck();
         this.mNavigationAdapter.setChecked(position, checked);
     }
 
     /**
      * Information footer list item
+     *
      * @param title item footer name.
-     * @param icon item footer icon.
+     * @param icon  item footer icon.
      */
-    public void setFooterInformationDrawer(String title, int icon){
+    public void setFooterInformationDrawer(String title, int icon) {
 
-        if (title == null){
+        if (title == null) {
             throw new RuntimeException(getString(R.string.title_null_or_empty));
         }
 
-        if (title.trim().equals("")){
+        if (title.trim().equals("")) {
             throw new RuntimeException(getString(R.string.title_null_or_empty));
         }
 
         mTitleFooter.setText(title);
 
-        if (icon == 0){
+        if (icon == 0) {
             mIconFooter.setVisibility(View.GONE);
-        }else{
+        } else {
             mIconFooter.setImageResource(icon);
         }
     }
 
     /**
      * Information footer list item
-     * @param title item footer name.
-     * @param icon item footer icon.
+     *
+     * @param title     item footer name.
+     * @param icon      item footer icon.
      * @param colorName item footer name color.
      * @param colorIcon item footer icon color.
      */
-    public void setFooterInformationDrawer(String title, int icon, int colorName, int colorIcon){
+    public void setFooterInformationDrawer(String title, int icon, int colorName, int colorIcon) {
 
-        if (title == null){
+        if (title == null) {
             throw new RuntimeException(getString(R.string.title_null_or_empty));
         }
 
-        if (title.trim().equals("")){
+        if (title.trim().equals("")) {
             throw new RuntimeException(getString(R.string.title_null_or_empty));
         }
 
         mTitleFooter.setText(title);
 
-        if (colorName > 0){
+        if (colorName > 0) {
             mTitleFooter.setTextColor(getResources().getColor(colorName));
         }
 
-        if (icon == 0){
+        if (icon == 0) {
             mIconFooter.setVisibility(View.GONE);
-        }else{
+        } else {
             mIconFooter.setImageResource(icon);
 
-            if ( colorIcon > 0) {
+            if (colorIcon > 0) {
                 mIconFooter.setColorFilter(getResources().getColor(colorIcon));
             }
         }
-    };
+    }
+
+    ;
 
     /**
      * Information footer list item
+     *
      * @param title item footer name.
-     * @param icon item footer icon.
+     * @param icon  item footer icon.
      */
-    public void setFooterInformationDrawer(int title, int icon){
+    public void setFooterInformationDrawer(int title, int icon) {
 
-        if (title == 0){
+        if (title == 0) {
             throw new RuntimeException(getString(R.string.title_null_or_empty));
         }
 
         mTitleFooter.setText(getString(title));
 
-        if (icon == 0){
+        if (icon == 0) {
             mIconFooter.setVisibility(View.GONE);
-        }else{
+        } else {
             mIconFooter.setImageResource(icon);
         }
-    };
+    }
+
+    ;
 
     /**
      * Information footer list item
-     * @param title item footer name.
-     * @param icon item footer icon.
+     *
+     * @param title     item footer name.
+     * @param icon      item footer icon.
      * @param colorName item footer name color.
      * @param colorIcon item footer icon color.
      */
-    public void setFooterInformationDrawer(int title, int icon, int colorName, int colorIcon){
+    public void setFooterInformationDrawer(int title, int icon, int colorName, int colorIcon) {
 
-        if (title == 0){
+        if (title == 0) {
             throw new RuntimeException(getString(R.string.title_null_or_empty));
         }
 
         mTitleFooter.setText(title);
 
-        if (colorName > 0){
+        if (colorName > 0) {
             mTitleFooter.setTextColor(getResources().getColor(colorName));
         }
 
-        if (icon == 0){
+        if (icon == 0) {
             mIconFooter.setVisibility(View.GONE);
-        }else{
+        } else {
             mIconFooter.setImageResource(icon);
 
-            if ( colorIcon > 0) {
+            if (colorIcon > 0) {
                 mIconFooter.setColorFilter(getResources().getColor(colorIcon));
             }
         }
-    };
+    }
+
+    ;
 
     /**
      * If not want to use the footer item just put false
+     *
      * @param visible true or false.
      */
-    public void setFooterNavigationVisible(boolean visible){
+    public void setFooterNavigationVisible(boolean visible) {
         this.mFooterDrawer.setVisibility((visible) ? View.VISIBLE : View.GONE);
     }
 
     /**
      * Item color selected in the list - name and icon (use before the setNavigationAdapter)
+     *
      * @param colorId color id.
      */
-    public void setColorSelectedItemNavigation(int colorId){
+    public void setColorSelectedItemNavigation(int colorId) {
         this.mColorSelected = colorId;
     }
 
     /**
      * Footer icon color
+     *
      * @param colorId color id.
      */
-    public void setFooterIconColorNavigation(int colorId){
+    public void setFooterIconColorNavigation(int colorId) {
         this.mIconFooter.setColorFilter(getResources().getColor(colorId));
     }
 
     /**
      * Item color default in the list - name and icon (use before the setNavigationAdapter)
+     *
      * @param colorId color id.
      */
-    public void setColorDefaultItemNavigation(int colorId){
+    public void setColorDefaultItemNavigation(int colorId) {
         this.mColorDefault = colorId;
     }
 
     /**
      * Icon item color in the list - icon (use before the setNavigationAdapter)
+     *
      * @param colorId color id.
      */
-    public void setColorIconItemNavigation(int colorId){
+    public void setColorIconItemNavigation(int colorId) {
         this.mColorIcon = colorId;
     }
 
     /**
      * Separator item subHeader color in the list - icon (use before the setNavigationAdapter)
+     *
      * @param colorId color id.
      */
-    public void setColorSeparatorItemSubHeaderNavigation(int colorId){
+    public void setColorSeparatorItemSubHeaderNavigation(int colorId) {
         this.mColorSeparator = colorId;
     }
 
     /**
      * Name item color in the list - name (use before the setNavigationAdapter)
+     *
      * @param colorId color id.
      */
-    public void setColorNameItemNavigation(int colorId){
+    public void setColorNameItemNavigation(int colorId) {
         this.mColorName = colorId;
     }
 
     /**
      * New selector navigation
+     *
      * @param resourceSelector drawable xml - selector.
      */
-    public void setNewSelectorNavigation(int resourceSelector){
+    public void setNewSelectorNavigation(int resourceSelector) {
 
-        if (mRemoveSelector){
+        if (mRemoveSelector) {
             throw new RuntimeException(getString(R.string.remove_selector_navigation));
         }
 
@@ -614,91 +745,99 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
     /**
      * Remove selector navigation
      */
-    public void removeSelectorNavigation(){
+    public void removeSelectorNavigation() {
         this.mRemoveSelector = true;
     }
 
     /**
      * New name item
+     *
      * @param position item position.
-     * @param name new name
+     * @param name     new name
      */
-    public void setNewName(int position, String name){
+    public void setNewName(int position, String name) {
         this.mNavigationAdapter.setNewName(position, name);
     }
 
     /**
      * New name item
+     *
      * @param position item position.
-     * @param name new name
+     * @param name     new name
      */
-    public void setNewName(int position, int name){
+    public void setNewName(int position, int name) {
         this.mNavigationAdapter.setNewName(position, getString(name));
     }
 
     /**
      * New name item
+     *
      * @param position item position.
-     * @param icon new icon
+     * @param icon     new icon
      */
-    public void setNewIcon(int position, int icon){
+    public void setNewIcon(int position, int icon) {
         this.mNavigationAdapter.setNewIcon(position, icon);
     }
 
     /**
      * New information item navigation
+     *
      * @param position item position.
-     * @param name new name
-     * @param icon new icon
-     * @param counter new counter
+     * @param name     new name
+     * @param icon     new icon
+     * @param counter  new counter
      */
-    public void setNewInformationItem(int position, int name, int icon, int counter){
+    public void setNewInformationItem(int position, int name, int icon, int counter) {
         this.mNavigationAdapter.setNewInformationItem(position, getString(name), icon, counter);
     }
 
     /**
      * New information item navigation
+     *
      * @param position item position.
-     * @param name new name
-     * @param icon new icon
-     * @param counter new counter
+     * @param name     new name
+     * @param icon     new icon
+     * @param counter  new counter
      */
 
-    public void setNewInformationItem(int position, String name, int icon, int counter){
+    public void setNewInformationItem(int position, String name, int icon, int counter) {
         this.mNavigationAdapter.setNewInformationItem(position, name, icon, counter);
     }
 
     /**
      * New counter value
+     *
      * @param position item position.
-     * @param value new counter value.
+     * @param value    new counter value.
      */
-    public void setNewCounterValue(int position, int value){
+    public void setNewCounterValue(int position, int value) {
         this.mNavigationAdapter.setNewCounterValue(position, value);
     }
 
     /**
      * Increasing counter value
+     *
      * @param position item position.
-     * @param value new counter value (old value + new value).
+     * @param value    new counter value (old value + new value).
      */
-    public void setIncreasingCounterValue(int position, int value){
+    public void setIncreasingCounterValue(int position, int value) {
         this.mNavigationAdapter.setIncreasingCounterValue(position, value);
     }
 
     /**
      * Decrease counter value
+     *
      * @param position item position.
-     * @param value new counter value (old value - new value).
+     * @param value    new counter value (old value - new value).
      */
-    public void setDecreaseCountervalue(int position, int value){
+    public void setDecreaseCountervalue(int position, int value) {
         this.mNavigationAdapter.setDecreaseCountervalue(position, value);
     }
 
     /**
      * Remove alpha item navigation (use before the setNavigationAdapter)
      */
-    public void removeAlphaItemNavigation(){
+    public void removeAlphaItemNavigation() {
         this.mRemoveAlpha = !mRemoveAlpha;
     }
 
@@ -706,10 +845,11 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
      * public void setElevation (float elevation)
      * Added in API level 21
      * Default value is 15
+     *
      * @param elevation Sets the base elevation of this view, in pixels.
      */
-    public void setElevationToolBar(float elevation){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    public void setElevationToolBar(float elevation) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.getToolbar().setElevation(elevation);
         }
     }
@@ -718,7 +858,7 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
      * Remove default Header
      */
     public void showDefaultHeader() {
-        if (mHeader == null){
+        if (mHeader == null) {
             throw new RuntimeException(getString(R.string.header_not_created));
         }
 
@@ -729,7 +869,7 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
      * Remove default Header
      */
     private void removeDefaultHeader() {
-        if (mHeader == null){
+        if (mHeader == null) {
             throw new RuntimeException(getString(R.string.header_not_created));
         }
 
@@ -738,10 +878,11 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
 
     /**
      * Add custom Header
+     *
      * @param v ...
      */
     public void addCustomHeader(View v) {
-        if (v == null){
+        if (v == null) {
             throw new RuntimeException(getString(R.string.custom_header_not_created));
         }
 
@@ -751,10 +892,11 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
 
     /**
      * Remove default Header
+     *
      * @param v ...
      */
     public void removeCustomdHeader(View v) {
-        if (v == null){
+        if (v == null) {
             throw new RuntimeException(getString(R.string.custom_header_not_created));
         }
 
@@ -809,7 +951,7 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
 
         Fragment mFragment = new MainFragment();
 
-        if (mFragment != null){
+        if (mFragment != null) {
             mFragmentManager.beginTransaction().replace(layoutContainerId, mFragment).commit();
         }
     }
@@ -842,11 +984,6 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
         //footer onClick
         startActivity(new Intent(this, SettingsActivity.class));
     }
-
-
-
-
-
 
 
 }
