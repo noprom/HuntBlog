@@ -2,15 +2,19 @@ package com.noprom.app.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.noprom.app.AppConfig;
+import com.noprom.app.AppContext;
+import com.noprom.app.AppException;
 import com.noprom.app.R;
 import com.noprom.app.bean.CommentList;
 import com.noprom.app.bean.News;
+import com.noprom.app.common.UIHelper;
 
 
 /**
@@ -47,8 +51,33 @@ public class NewsDetail extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         this.initView();
+        this.initData();
 
 
+    }
+
+    /**
+     * 初始化数据
+     */
+    private void initData() {
+
+    }
+
+    private void initData(final int news_id,final boolean isRefresh){
+        new Thread(){
+            @Override
+            public void run() {
+                Message msg = new Message();
+                try{
+                    newsDetail = ((AppContext)getApplication()).getNews
+                }catch (AppException e){
+                    e.printStackTrace();
+                    msg.what = -1;
+                    msg.obj = e;
+                }
+                mHandler.sendMessage(msg);
+            }
+        }.start();
     }
 
     /**
@@ -70,7 +99,9 @@ public class NewsDetail extends ActionBarActivity {
         mWebView.getSettings().setSupportZoom(true);
         mWebView.getSettings().setBuiltInZoomControls(true);
         mWebView.getSettings().setDefaultFontSize(15);
+        UIHelper.addWebImageShow(this,mWebView);
 
+        // TODO add others
     }
 
 

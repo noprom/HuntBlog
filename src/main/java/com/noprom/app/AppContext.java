@@ -12,6 +12,7 @@ import android.os.Message;
 
 import com.noprom.app.api.ApiClient;
 import com.noprom.app.bean.BlogList;
+import com.noprom.app.bean.News;
 import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Notice;
 import com.noprom.app.common.StringUtils;
@@ -79,8 +80,10 @@ public class AppContext extends Application {
             saveImagePath = AppConfig.DEFAULT_SAVE_IMAGE_PATH;
         }
     }
+
     /**
      * 用户是否登录
+     *
      * @return
      */
     public boolean isLogin() {
@@ -100,10 +103,10 @@ public class AppContext extends Application {
     /**
      * 清除保存的缓存
      */
-    public void cleanCookie()
-    {
+    public void cleanCookie() {
         removeProperty(AppConfig.CONF_COOKIE);
     }
+
     /**
      * 检测当前系统声音是否为正常模式
      *
@@ -178,11 +181,12 @@ public class AppContext extends Application {
 
     /**
      * 获取App唯一标识
+     *
      * @return
      */
     public String getAppId() {
         String uniqueID = getProperty(AppConfig.CONF_APP_UNIQUEID);
-        if(StringUtils.isEmpty(uniqueID)){
+        if (StringUtils.isEmpty(uniqueID)) {
             uniqueID = UUID.randomUUID().toString();
             setProperty(AppConfig.CONF_APP_UNIQUEID, uniqueID);
         }
@@ -200,25 +204,25 @@ public class AppContext extends Application {
      */
     public NewsList getNewsList(int catalog, int pageIndex, boolean isRefresh) throws AppException {
         NewsList list = null;
-        String key = "newslist_"+catalog+"_"+pageIndex+"_"+PAGE_SIZE;
-        if(isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
-            try{
+        String key = "newslist_" + catalog + "_" + pageIndex + "_" + PAGE_SIZE;
+        if (isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
+            try {
                 list = ApiClient.getNewsList(this, catalog, pageIndex, PAGE_SIZE);
-                if(list != null && pageIndex == 0){
+                if (list != null && pageIndex == 0) {
                     Notice notice = list.getNotice();
                     list.setNotice(null);
                     list.setCacheKey(key);
                     saveObject(list, key);
                     list.setNotice(notice);
                 }
-            }catch(AppException e){
-                list = (NewsList)readObject(key);
-                if(list == null)
+            } catch (AppException e) {
+                list = (NewsList) readObject(key);
+                if (list == null)
                     throw e;
             }
         } else {
-            list = (NewsList)readObject(key);
-            if(list == null)
+            list = (NewsList) readObject(key);
+            if (list == null)
                 list = new NewsList();
         }
         return list;
@@ -226,33 +230,69 @@ public class AppContext extends Application {
 
 
     /**
+     * 新闻详情
+     *
+     * @param news_id
+     * @param isRefresh
+     * @return
+     * @throws AppException
+     */
+    public News getNews(int news_id, boolean isRefresh) throws AppException {
+        News news = null;
+        String key = "news_" + news_id;
+        if (isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
+            try {
+                news = ApiClient.getNewsDetail(this, news_id);
+                if (news != null) {
+                    Notice notice = news.getNotice();
+                    news.setNotice(null);
+                    news.setCacheKey(key);
+                    saveObject(news, key);
+                    news.setNotice(notice);
+                }
+            } catch (AppException e) {
+                news = (News) readObject(key);
+                if (news == null)
+                    throw e;
+            }
+        } else {
+            news = (News) readObject(key);
+            if (news == null)
+                news = new News();
+        }
+        return news;
+    }
+
+
+    /**
      * 博客列表
-     * @param type 推荐：recommend 最新：latest
+     *
+     * @param type      推荐：recommend 最新：latest
      * @param pageIndex
      * @return
      * @throws AppException
      */
     public BlogList getBlogList(String type, int pageIndex, boolean isRefresh) throws AppException {
         BlogList list = null;
-        String key = "bloglist_"+type+"_"+pageIndex+"_"+PAGE_SIZE;
-        if(isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
-            try{
+        String key = "bloglist_" + type + "_" + pageIndex + "_" + PAGE_SIZE;
+        if (isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
+            try {
                 list = ApiClient.getBlogList(this, type, pageIndex, PAGE_SIZE);
-                if(list != null && pageIndex == 0){
+                if (list != null && pageIndex == 0) {
                     Notice notice = list.getNotice();
                     list.setNotice(null);
                     list.setCacheKey(key);
                     saveObject(list, key);
                     list.setNotice(notice);
                 }
-            }catch(AppException e){
-                list = (BlogList)readObject(key);
-                if(list == null)
+            } catch (AppException e) {
+                list = (BlogList) readObject(key);
+                if (list == null)
                     throw e;
             }
         } else {
-            list = (BlogList)readObject(key);
-            if(list == null)
+            list = (BlogList) readObject(key);
+            if (list == null)
                 list = new BlogList();
         }
         return list;
@@ -264,6 +304,7 @@ public class AppContext extends Application {
     public Handler getUnLoginHandler() {
         return this.unLoginHandler;
     }
+
     /**
      * 获取App安装包信息
      *
@@ -323,30 +364,34 @@ public class AppContext extends Application {
     public void setSaveImagePath(String saveImagePath) {
         this.saveImagePath = saveImagePath;
     }
+
     /**
      * 判断缓存数据是否可读
+     *
      * @param cachefile
      * @return
      */
-    private boolean isReadDataCache(String cachefile){
+    private boolean isReadDataCache(String cachefile) {
         return readObject(cachefile) != null;
     }
 
     /**
      * 判断缓存是否存在
+     *
      * @param cachefile
      * @return
      */
-    private boolean isExistDataCache(String cachefile){
+    private boolean isExistDataCache(String cachefile) {
         boolean exist = false;
         File data = getFileStreamPath(cachefile);
-        if(data.exists())
+        if (data.exists())
             exist = true;
         return exist;
     }
 
     /**
      * 保存对象
+     *
      * @param ser
      * @param file
      * @throws java.io.IOException
@@ -354,54 +399,59 @@ public class AppContext extends Application {
     public boolean saveObject(Serializable ser, String file) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
-        try{
+        try {
             fos = openFileOutput(file, MODE_PRIVATE);
             oos = new ObjectOutputStream(fos);
             oos.writeObject(ser);
             oos.flush();
             return true;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
-        }finally{
+        } finally {
             try {
                 oos.close();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
             try {
                 fos.close();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
     }
 
     /**
      * 读取对象
+     *
      * @param file
      * @return
      */
-    public Serializable readObject(String file){
-        if(!isExistDataCache(file))
+    public Serializable readObject(String file) {
+        if (!isExistDataCache(file))
             return null;
         FileInputStream fis = null;
         ObjectInputStream ois = null;
-        try{
+        try {
             fis = openFileInput(file);
             ois = new ObjectInputStream(fis);
-            return (Serializable)ois.readObject();
-        }catch(FileNotFoundException e){
-        }catch(Exception e){
+            return (Serializable) ois.readObject();
+        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             //反序列化失败 - 删除缓存文件
-            if(e instanceof InvalidClassException){
+            if (e instanceof InvalidClassException) {
                 File data = getFileStreamPath(file);
                 data.delete();
             }
-        }finally{
+        } finally {
             try {
                 ois.close();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
             try {
                 fis.close();
-            } catch (Exception e) {}
+            } catch (Exception e) {
+            }
         }
         return null;
     }
