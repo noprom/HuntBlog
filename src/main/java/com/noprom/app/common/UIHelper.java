@@ -15,6 +15,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +23,13 @@ import android.widget.Toast;
 import com.noprom.app.AppContext;
 import com.noprom.app.AppManager;
 import com.noprom.app.R;
+import com.noprom.app.bean.News;
 import com.noprom.app.bean.Notice;
+import com.noprom.app.bean.URLs;
 import com.noprom.app.ui.ImageDialog;
 import com.noprom.app.ui.ImageZoomDialog;
 import com.noprom.app.ui.MainActivity;
+import com.noprom.app.ui.NewsDetail;
 
 import java.util.regex.Pattern;
 
@@ -63,8 +67,7 @@ public class UIHelper {
 	public final static int REQUEST_CODE_FOR_REPLY = 0x02;
 
 	/** 表情图片匹配 */
-	private static Pattern facePattern = Pattern
-			.compile("\\[{1}([0-9]\\d*)\\]{1}");
+	private static Pattern facePattern = Pattern.compile("\\[{1}([0-9]\\d*)\\]{1}");
 
 	/** 全局web样式 */
 	// 链接样式文件，代码块高亮的处理
@@ -109,11 +112,11 @@ public class UIHelper {
 	 * @param context
 	 * @param newsId
 	 */
-//	public static void showNewsDetail(Context context, int newsId) {
-//		Intent intent = new Intent(context, NewsDetail.class);
-//		intent.putExtra("news_id", newsId);
-//		context.startActivity(intent);
-//	}
+	public static void showNewsDetail(Context context, int newsId) {
+		Intent intent = new Intent(context, NewsDetail.class);
+		intent.putExtra("news_id", newsId);
+		context.startActivity(intent);
+	}
 
 	/**
 	 * 显示帖子详情
@@ -207,17 +210,17 @@ public class UIHelper {
 	 * 
 	 * @param context
 	 */
-//	public static void showNewsRedirect(Context context, News news) {
-//		String url = news.getUrl();
-//		// url为空-旧方法
-//		if (StringUtils.isEmpty(url)) {
-//			int newsId = news.getId();
-//			int newsType = news.getNewType().type;
-//			String objId = news.getNewType().attachment;
-//			switch (newsType) {
-//			case News.NEWSTYPE_NEWS:
-//				showNewsDetail(context, newsId);
-//				break;
+	public static void showNewsRedirect(Context context, News news) {
+		String url = news.getUrl();
+		// url为空-旧方法
+		if (StringUtils.isEmpty(url)) {
+			int newsId = news.getId();
+			int newsType = news.getNewType().type;
+			String objId = news.getNewType().attachment;
+			switch (newsType) {
+			case News.NEWSTYPE_NEWS:
+				showNewsDetail(context, newsId);
+				break;
 //			case News.NEWSTYPE_SOFTWARE:
 //				showSoftwareDetail(context, objId);
 //				break;
@@ -227,11 +230,11 @@ public class UIHelper {
 //			case News.NEWSTYPE_BLOG:
 //				showBlogDetail(context, StringUtils.toInt(objId));
 //				break;
-//			}
-//		} else {
-//			showUrlRedirect(context, url);
-//		}
-//	}
+			}
+		} else {
+			showUrlRedirect(context, url);
+		}
+	}
 
 	/**
 	 * 动态点击跳转到相关新闻、帖子等
@@ -915,22 +918,22 @@ public class UIHelper {
 	 * @param context
 	 * @param url
 	 */
-//	public static void showUrlRedirect(Context context, String url) {
-//		URLs urls = URLs.parseURL(url);
-//		if (urls != null) {
-//			showLinkRedirect(context, urls.getObjType(), urls.getObjId(),
-//					urls.getObjKey());
-//		} else {
-//			openBrowser(context, url);
-//		}
-//	}
+	public static void showUrlRedirect(Context context, String url) {
+		URLs urls = URLs.parseURL(url);
+		if (urls != null) {
+			showLinkRedirect(context, urls.getObjType(), urls.getObjId(),
+					urls.getObjKey());
+		} else {
+			openBrowser(context, url);
+		}
+	}
 
-//	public static void showLinkRedirect(Context context, int objType,
-//			int objId, String objKey) {
-//		switch (objType) {
-//		case URLs.URL_OBJ_TYPE_NEWS:
-//			showNewsDetail(context, objId);
-//			break;
+	public static void showLinkRedirect(Context context, int objType,
+			int objId, String objKey) {
+		switch (objType) {
+		case URLs.URL_OBJ_TYPE_NEWS:
+			showNewsDetail(context, objId);
+			break;
 //		case URLs.URL_OBJ_TYPE_QUESTION:
 //			showQuestionDetail(context, objId);
 //			break;
@@ -952,8 +955,8 @@ public class UIHelper {
 //		case URLs.URL_OBJ_TYPE_OTHER:
 //			openBrowser(context, objKey);
 //			break;
-//		}
-//	}
+		}
+	}
 
 	/**
 	 * 打开浏览器
@@ -977,15 +980,15 @@ public class UIHelper {
 	 * 
 	 * @return
 	 */
-//	public static WebViewClient getWebViewClient() {
-//		return new WebViewClient() {
-//			@Override
-//			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-//				showUrlRedirect(view.getContext(), url);
-//				return true;
-//			}
-//		};
-//	}
+	public static WebViewClient getWebViewClient() {
+		return new WebViewClient() {
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				showUrlRedirect(view.getContext(), url);
+				return true;
+			}
+		};
+	}
 
 	/**
 	 * 获取TextWatcher对象

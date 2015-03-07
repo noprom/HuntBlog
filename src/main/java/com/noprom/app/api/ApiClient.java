@@ -2,6 +2,7 @@ package com.noprom.app.api;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import com.noprom.app.AppContext;
 import com.noprom.app.AppException;
@@ -47,6 +48,7 @@ import java.util.Map;
  *          Created by noprom on 2015/3/5.
  */
 public class ApiClient {
+    private static final String TAG = "ApiClient";
 
     public static final String UTF_8 = "UTF-8";
     public static final String DESC = "descend";
@@ -644,6 +646,7 @@ public class ApiClient {
             put("id", news_id);
         }});
 
+        Log.d(TAG,"newUrl = "+newUrl);
         try{
             return News.parse(http_get(appContext, newUrl));
         }catch(Exception e){

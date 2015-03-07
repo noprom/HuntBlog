@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.noprom.app.api.ApiClient;
 import com.noprom.app.bean.BlogList;
@@ -45,6 +46,8 @@ public class AppContext extends Application {
 
     public static final int PAGE_SIZE = 20;//默认分页大小
     private static final int CACHE_TIME = 60 * 60000;//缓存失效时间
+    private static final String TAG = "AppContext";
+
 
     private boolean login = false;    //登录状态
     private int loginUid = 0;    //登录用户的id
@@ -242,6 +245,7 @@ public class AppContext extends Application {
         String key = "news_" + news_id;
         if (isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
             try {
+                Log.d(TAG,"getNews & key = "+key);
                 news = ApiClient.getNewsDetail(this, news_id);
                 if (news != null) {
                     Notice notice = news.getNotice();
@@ -345,6 +349,20 @@ public class AppContext extends Application {
 
     public void removeProperty(String... key) {
         AppConfig.getAppConfig(this).remove(key);
+    }
+
+    /**
+     * 是否加载显示文章图片
+     * @return
+     */
+    public boolean isLoadImage()
+    {
+        String perf_loadimage = getProperty(AppConfig.CONF_LOAD_IMAGE);
+        //默认是加载的
+        if(StringUtils.isEmpty(perf_loadimage))
+            return true;
+        else
+            return StringUtils.toBool(perf_loadimage);
     }
 
     /**

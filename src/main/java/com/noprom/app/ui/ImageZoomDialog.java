@@ -19,24 +19,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
-import net.oschina.app.AppContext;
-import net.oschina.app.AppException;
-import net.oschina.app.R;
-import net.oschina.app.api.ApiClient;
-import net.oschina.app.common.FileUtils;
-import net.oschina.app.common.ImageUtils;
-import net.oschina.app.common.StringUtils;
-import net.oschina.app.common.UIHelper;
+import com.noprom.app.AppContext;
+import com.noprom.app.AppException;
+import com.noprom.app.R;
+import com.noprom.app.api.ApiClient;
+import com.noprom.app.common.FileUtils;
+import com.noprom.app.common.ImageUtils;
+import com.noprom.app.common.StringUtils;
+import com.noprom.app.common.UIHelper;
 
 import java.io.File;
 import java.io.IOException;
 
 /**
  * 图片缩放对话框
- * 
- * @author liux (http://my.oschina.net/liux)
+ *
+ * @author noprom (http://github.com/noprom)
  * @version 1.0
- * @created 2012-3-21
+ * Created by noprom on 2014-2-22.
  */
 public class ImageZoomDialog extends BaseActivity implements OnTouchListener,
 		OnClickListener {
