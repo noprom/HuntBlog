@@ -1,16 +1,18 @@
 package com.noprom.app.ui;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.noprom.app.AppConfig;
 import com.noprom.app.AppContext;
@@ -50,8 +52,12 @@ public class NewsDetail extends ActionBarActivity {
     private ImageButton mComment;
     private ImageButton mWrite;
     private ImageButton mShare;
-    private ImageButton mSwitch;
+    private ImageButton mCommonSwitch;
 
+    private ImageButton mCommentSwitch;
+    private EditText mFootEditbox;
+
+    private ViewSwitcher mFooterViewSwitcher;
 
     private String tempCommentKey = AppConfig.TEMP_COMMENT;
 
@@ -91,21 +97,78 @@ public class NewsDetail extends ActionBarActivity {
         mWebView.getSettings().setDefaultFontSize(15);
         UIHelper.addWebImageShow(this, mWebView);
 
+        mFooterViewSwitcher = (ViewSwitcher) findViewById(R.id.news_detail_foot_viewswitcher);
         // 底部的图标
         mFavorite = (ImageButton) findViewById(R.id.news_detail_footbar_star);
         mComment = (ImageButton) findViewById(R.id.news_detail_footbar_comment);
         mWrite = (ImageButton) findViewById(R.id.news_detail_footbar_write);
         mShare = (ImageButton) findViewById(R.id.news_detail_footbar_share);
-        mSwitch = (ImageButton) findViewById(R.id.news_detail_footbar_switch);
+        mCommonSwitch = (ImageButton) findViewById(R.id.news_detail_footbar_common_switch);
+
+        // 评论时的图标
+        mCommentSwitch = (ImageButton) findViewById(R.id.news_detail_footbar_comment_switch);
+        mFootEditbox = (EditText) findViewById(R.id.news_detail_footbar_editbox);
+
 
         // 评论数目
-        bv_comment = new BadgeView(this, mComment);
-        bv_comment.setBackgroundResource(R.drawable.widget_count_bg2);
-        bv_comment.setIncludeFontPadding(false);
-        bv_comment.setGravity(Gravity.CENTER);
-        bv_comment.setTextSize(8f);
-        bv_comment.setTextColor(Color.WHITE);
+//        bv_comment = new BadgeView(this, mComment);
+//        bv_comment.setBackgroundResource(R.drawable.widget_count_bg2);
+//        bv_comment.setIncludeFontPadding(false);
+//        bv_comment.setGravity(Gravity.CENTER);
+//        bv_comment.setTextSize(8f);
+//        bv_comment.setTextColor(Color.WHITE);
 
+
+        // 初始化点击事件
+        mCommonSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlphaAnimation anim = new AlphaAnimation(1.0f,0.0f);
+                anim.setDuration(500);
+                findViewById(R.id.news_detail_footer_common).startAnimation(anim);
+                anim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mFooterViewSwitcher.showNext();
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+        });
+
+        mCommentSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlphaAnimation anim = new AlphaAnimation(1.0f,0.0f);
+                anim.setDuration(500);
+                findViewById(R.id.news_detail_footer_commentlv).startAnimation(anim);
+                anim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mFooterViewSwitcher.setDisplayedChild(0);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+            }
+        });
 
     }
 
@@ -119,7 +182,6 @@ public class NewsDetail extends ActionBarActivity {
             public void handleMessage(Message msg) {
                 if (msg.what == 1) {
 
-                    Log.d(TAG, "title = " + newsDetail.getTitle());
                     // 加载数据
                     mTitle.setText(newsDetail.getTitle());
                     mAuthor.setText(newsDetail.getAuthor());
@@ -134,17 +196,13 @@ public class NewsDetail extends ActionBarActivity {
                     }
 
                     // 显示评论数
-                    if(newsDetail.getCommentCount() > 0){
-                        bv_comment.setText(newsDetail.getCommentCount() + "");
-                        bv_comment.show();
-                    }else{
-                        bv_comment.setText("");
-                        bv_comment.hide();
-                    }
-
-
-
-                    Log.d(TAG, "body = " + newsDetail.getBody());
+//                    if(newsDetail.getCommentCount() > 0){
+//                        bv_comment.setText(newsDetail.getCommentCount() + "");
+//                        bv_comment.show();
+//                    }else{
+//                        bv_comment.setText("");
+//                        bv_comment.hide();
+//                    }
 
                     // 加载内容
                     String body = UIHelper.WEB_STYLE + newsDetail.getBody();
@@ -225,7 +283,6 @@ public class NewsDetail extends ActionBarActivity {
                 Message msg = new Message();
                 try {
                     newsDetail = ((AppContext) getApplication()).getNews(news_id, isRefresh);
-                    Log.d(TAG, "newsId = " + news_id);
                     msg.what = (newsDetail != null && newsDetail.getId() > 0) ? 1 : 0;
                     msg.obj = (newsDetail != null) ? newsDetail.getNotice() : null;// 通知信息
                 } catch (AppException e) {

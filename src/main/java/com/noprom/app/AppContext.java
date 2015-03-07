@@ -9,7 +9,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.noprom.app.api.ApiClient;
 import com.noprom.app.bean.BlogList;
@@ -245,7 +244,6 @@ public class AppContext extends Application {
         String key = "news_" + news_id;
         if (isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
             try {
-                Log.d(TAG,"getNews & key = "+key);
                 news = ApiClient.getNewsDetail(this, news_id);
                 if (news != null) {
                     Notice notice = news.getNotice();
