@@ -14,6 +14,7 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ import com.noprom.app.AppContext;
 import com.noprom.app.AppManager;
 import com.noprom.app.R;
 import com.noprom.app.bean.Notice;
+import com.noprom.app.ui.ImageDialog;
+import com.noprom.app.ui.ImageZoomDialog;
 import com.noprom.app.ui.MainActivity;
 
 import java.util.regex.Pattern;
@@ -712,17 +715,17 @@ public class UIHelper {
 	 * @param context
 	 * @param imgUrl
 	 */
-//	public static void showImageDialog(Context context, String imgUrl) {
-//		Intent intent = new Intent(context, ImageDialog.class);
-//		intent.putExtra("img_url", imgUrl);
-//		context.startActivity(intent);
-//	}
+	public static void showImageDialog(Context context, String imgUrl) {
+		Intent intent = new Intent(context, ImageDialog.class);
+		intent.putExtra("img_url", imgUrl);
+		context.startActivity(intent);
+	}
 
-//	public static void showImageZoomDialog(Context context, String imgUrl) {
-//		Intent intent = new Intent(context, ImageZoomDialog.class);
-//		intent.putExtra("img_url", imgUrl);
-//		context.startActivity(intent);
-//	}
+	public static void showImageZoomDialog(Context context, String imgUrl) {
+		Intent intent = new Intent(context, ImageZoomDialog.class);
+		intent.putExtra("img_url", imgUrl);
+		context.startActivity(intent);
+	}
 
 	/**
 	 * 显示系统设置界面
@@ -1555,18 +1558,18 @@ public class UIHelper {
 	/**
 	 * 添加网页的点击图片展示支持
 	 */
-//	@SuppressLint({ "SetJavaScriptEnabled", "JavascriptInterface" })
-//	public static void addWebImageShow(final Context cxt, WebView wv) {
-//		wv.getSettings().setJavaScriptEnabled(true);
-//		wv.addJavascriptInterface(new OnWebViewImageListener() {
-//
-//			@Override
-//			public void onImageClick(String bigImageUrl) {
-//				if (bigImageUrl != null)
-//					UIHelper.showImageZoomDialog(cxt, bigImageUrl);
-//			}
-//		}, "mWebViewImageListener");
-//	}
+	@SuppressLint({ "SetJavaScriptEnabled", "JavascriptInterface" })
+	public static void addWebImageShow(final Context cxt, WebView wv) {
+		wv.getSettings().setJavaScriptEnabled(true);
+		wv.addJavascriptInterface(new OnWebViewImageListener() {
+
+			@Override
+			public void onImageClick(String bigImageUrl) {
+				if (bigImageUrl != null)
+					UIHelper.showImageZoomDialog(cxt, bigImageUrl);
+			}
+		}, "mWebViewImageListener");
+	}
 	
 //	@SuppressWarnings("deprecation")
 //	public static void showQuestionOption(final Activity context, View aim, final Post postDetail) {

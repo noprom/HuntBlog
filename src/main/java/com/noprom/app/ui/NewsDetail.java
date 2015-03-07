@@ -65,6 +65,11 @@ public class NewsDetail extends ActionBarActivity {
         mPubDate = (TextView) findViewById(R.id.news_detail_date);
         mCommentCount = (TextView) findViewById(R.id.news_detail_commentcount);
 
+        mWebView = (WebView) findViewById(R.id.news_detail_webview);
+        // 允许缩放
+        mWebView.getSettings().setSupportZoom(true);
+        mWebView.getSettings().setBuiltInZoomControls(true);
+        mWebView.getSettings().setDefaultFontSize(15);
 
     }
 
