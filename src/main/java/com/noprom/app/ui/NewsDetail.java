@@ -119,58 +119,17 @@ public class NewsDetail extends ActionBarActivity {
 //        bv_comment.setTextColor(Color.WHITE);
 
 
-        // 初始化点击事件
-        mCommonSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlphaAnimation anim = new AlphaAnimation(1.0f,0.0f);
-                anim.setDuration(500);
-                findViewById(R.id.news_detail_footer_common).startAnimation(anim);
-                anim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
+        // 由主界面切换至评论界面
+        mCommonSwitch.setOnClickListener(switchToCommentListener);
+        mWrite.setOnClickListener(switchToCommentListener);
 
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mFooterViewSwitcher.showNext();
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-            }
-        });
-
-        mCommentSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlphaAnimation anim = new AlphaAnimation(1.0f,0.0f);
-                anim.setDuration(500);
-                findViewById(R.id.news_detail_footer_commentlv).startAnimation(anim);
-                anim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mFooterViewSwitcher.setDisplayedChild(0);
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-
-                    }
-                });
-            }
-        });
+        // 由评论界面切换至主界面
+        mCommentSwitch.setOnClickListener(switchToCommenListener);
 
     }
+
+
+
 
     /**
      * 初始化数据
@@ -189,9 +148,9 @@ public class NewsDetail extends ActionBarActivity {
                     mCommentCount.setText(String.valueOf(newsDetail.getCommentCount()));
 
                     // 是否收藏
-                    if(newsDetail.getFavorite() == 1){
+                    if (newsDetail.getFavorite() == 1) {
                         mFavorite.setBackgroundResource(R.drawable.news_detail_footbar_star_on);
-                    }else{
+                    } else {
                         mFavorite.setBackgroundResource(R.drawable.news_detail_footbar_star);
                     }
 
@@ -296,6 +255,57 @@ public class NewsDetail extends ActionBarActivity {
     }
 
 
+
+
+    // 主界面切换至评论界面Listener
+    private View.OnClickListener switchToCommentListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+            anim.setDuration(500);
+            findViewById(R.id.news_detail_footer_common).startAnimation(anim);
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mFooterViewSwitcher.showNext();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+            });
+        }
+    };
+
+    // 由评论界面切换至主界面
+    private View.OnClickListener switchToCommenListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            AlphaAnimation anim = new AlphaAnimation(1.0f, 0.0f);
+            anim.setDuration(500);
+            findViewById(R.id.news_detail_footer_commentlv).startAnimation(anim);
+            anim.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    mFooterViewSwitcher.setDisplayedChild(0);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+        }
+    };
 
 
     @Override
