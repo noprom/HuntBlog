@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -54,10 +56,25 @@ public class NewsDetail extends ActionBarActivity {
     private ImageButton mShare;
     private ImageButton mCommonSwitch;
 
+    // 发布评论时
     private ImageButton mCommentSwitch;
-    private EditText mFootEditbox;
+    private ImageButton mPubComment;
+    private EditText mFootEditor;
 
+    private InputMethodManager imm;
     private ViewSwitcher mFooterViewSwitcher;
+    // 发布评论时使用
+    private int _catalog;
+    private int _id;
+    private int _uid;
+    private String _content;
+    private int _isPostToMyZone;
+
+    // 当前文章相关
+    private int curId;
+    private int curCatalog;
+    private int curLvDataState;
+    private int curLvPosition;  // 当前listview选中的item的位置
 
     private String tempCommentKey = AppConfig.TEMP_COMMENT;
 
@@ -98,7 +115,7 @@ public class NewsDetail extends ActionBarActivity {
         UIHelper.addWebImageShow(this, mWebView);
 
         mFooterViewSwitcher = (ViewSwitcher) findViewById(R.id.news_detail_foot_viewswitcher);
-        // 底部的图标
+        // 最开始进入时底部的图标
         mFavorite = (ImageButton) findViewById(R.id.news_detail_footbar_star);
         mComment = (ImageButton) findViewById(R.id.news_detail_footbar_comment);
         mWrite = (ImageButton) findViewById(R.id.news_detail_footbar_write);
@@ -107,8 +124,8 @@ public class NewsDetail extends ActionBarActivity {
 
         // 评论时的图标
         mCommentSwitch = (ImageButton) findViewById(R.id.news_detail_footbar_comment_switch);
-        mFootEditbox = (EditText) findViewById(R.id.news_detail_footbar_editbox);
-
+        mFootEditor = (EditText) findViewById(R.id.news_detail_footbar_editer);
+        mPubComment = (ImageButton) findViewById(R.id.news_detail_footer_pubcomment);
 
         // 评论数目
 //        bv_comment = new BadgeView(this, mComment);
@@ -125,7 +142,36 @@ public class NewsDetail extends ActionBarActivity {
 
         // 由评论界面切换至主界面
         mCommentSwitch.setOnClickListener(switchToCommenListener);
+        // 发布评论
+        mPubComment.setOnClickListener(commentPubClickListener);
 
+        // 发布评论时评论框的状态
+//        mFootEditor.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    imm.showSoftInput(v, 0);
+//                } else {
+//                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+////                    hideEditor(v);
+//                }
+//
+//            }
+//        });
+
+        // 设置Key监听状态
+//        mFootEditor.setOnKeyListener(new View.OnKeyListener() {
+//
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK) {
+////                    hideEditor(v);
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
     }
 
 
@@ -307,6 +353,29 @@ public class NewsDetail extends ActionBarActivity {
         }
     };
 
+
+
+    // 发送评论
+    private View.OnClickListener commentPubClickListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            _id = curId;
+            Log.d(TAG,"curId"+curId);
+            if (curId == 0) {
+                return;
+            }
+
+            _catalog = curCatalog;
+            _content = mFootEditor.getText().toString();
+            if(StringUtils.isEmpty(_content)){
+                UIHelper.ToastMessage(v.getContext(),"请输入评论内容");
+                return;
+            }
+
+
+        }
+    };
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
