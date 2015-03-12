@@ -69,6 +69,10 @@
             android:name=".ui.NewsDetail"
             android:label="@string/title_activity_news_detail" >
         </activity>
+        <activity
+            android:name=".ui.LoginActivity"
+            android:label="@string/title_activity_login" >
+        </activity>
     </application>
 
 </manifest>

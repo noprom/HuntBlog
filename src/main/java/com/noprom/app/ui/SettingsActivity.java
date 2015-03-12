@@ -23,22 +23,22 @@ import com.noprom.app.R;
 
 public class SettingsActivity extends ActionBarActivity {
 
-            @Override
-            protected void onCreate(Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                setContentView(R.layout.activity_news_detail);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_news_detail);
 //
 //                TextView mTxtTitle = (TextView) findViewById(R.id.txtTitle);
 //                mTxtTitle.setText(getString(R.string.settings));
 
-                getSupportActionBar().setHomeButtonEnabled(true);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            }
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
 
-            @Override
-            public boolean onOptionsItemSelected(MenuItem item) {
-                finish();
-                return super.onOptionsItemSelected(item);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        finish();
+        return super.onOptionsItemSelected(item);
     }
 }

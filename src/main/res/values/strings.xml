@@ -116,6 +116,6 @@
     <string name="tab_buttom_tweet">动弹</string>
     <string name="tab_buttom_all">综合</string>
     <string name="title_activity_news_detail">NewsDetail</string>
-
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>
