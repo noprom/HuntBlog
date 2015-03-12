@@ -117,7 +117,7 @@
                 android:background="@drawable/news_detail_footbar_comment_switch"/>
 
             <EditText
-                android:id="@+id/news_detail_footbar_editer"
+                android:id="@+id/news_detail_footbar_editbox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -126,7 +126,6 @@
                 android:padding="10px"/>
 
             <ImageButton
-                android:id="@+id/news_detail_footer_pubcomment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/biz_chat_comment_send"/>
