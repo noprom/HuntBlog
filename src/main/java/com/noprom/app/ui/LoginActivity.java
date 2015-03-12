@@ -1,6 +1,7 @@
 package com.noprom.app.ui;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.noprom.app.AppContext;
+import com.noprom.app.AppException;
 import com.noprom.app.R;
 import com.noprom.app.common.StringUtils;
 import com.noprom.app.common.UIHelper;
@@ -69,8 +72,30 @@ public class LoginActivity extends ActionBarActivity {
             }
         });
 
+        // TODO 是否显示登录信息
+
+
     }
 
+
+
+    // TODO 登录验证
+    private void login(final String account,final String pwd){
+
+        new Thread(){
+            @Override
+            public void run() {
+                Message msg = new Message();
+                try{
+                    AppContext ac = (AppContext) getApplication();
+                    // TODO
+
+                }catch (AppException e){
+
+                }
+            }
+        }.start();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
