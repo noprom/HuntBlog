@@ -144,6 +144,9 @@ public class MainActivity extends ActionBarActivity implements NavigationLiveoLi
         mTabTweet.setOnClickListener(this);
         mTabExplore.setOnClickListener(this);
         mTabMe.setOnClickListener(this);
+
+        // 默认第一个选中
+        setTab(0);
     }
 
     @Override

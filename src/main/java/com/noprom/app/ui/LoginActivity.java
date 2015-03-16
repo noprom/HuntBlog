@@ -31,6 +31,7 @@ import com.noprom.app.common.UIHelper;
  *          Created by noprom on 2015/3/12.
  */
 public class LoginActivity extends ActionBarActivity {
+    private static final String TAG = "LoginActivity";
 
     private AutoCompleteTextView mAccount;
     private EditText mPwd;
