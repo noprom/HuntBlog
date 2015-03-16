@@ -158,7 +158,7 @@ public class User extends Base {
      * @throws IOException
      * @throws AppException
      */
-    public static User parase(InputStream stream) throws IOException,AppException{
+    public static User parse(InputStream stream) throws IOException,AppException{
         User user = new User();
         Result res = null;
         // 获得XmlPullParase解析器

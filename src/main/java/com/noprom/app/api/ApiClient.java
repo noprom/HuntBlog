@@ -12,6 +12,7 @@ import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Result;
 import com.noprom.app.bean.URLs;
 import com.noprom.app.bean.Update;
+import com.noprom.app.bean.User;
 import com.noprom.app.bean.WellcomeImage;
 import com.noprom.app.common.FileUtils;
 import com.noprom.app.common.ImageUtils;
@@ -434,25 +435,25 @@ public class ApiClient {
      * @param pwd
      * @return
      */
-//    public static User login(AppContext appContext, String username, String pwd) throws AppException {
-//        Map<String,Object> params = new HashMap<String,Object>();
-//        params.put("username", username);
-//        params.put("pwd", pwd);
-//        params.put("keep_login", 1);
-//
-//        String loginurl = URLs.LOGIN_VALIDATE_HTTP;
-//        if(appContext.isHttpsLogin()){
-//            loginurl = URLs.LOGIN_VALIDATE_HTTPS;
-//        }
-//
-//        try{
-//            return User.parse(_post(appContext, loginurl, params, null));
-//        }catch(Exception e){
-//            if(e instanceof AppException)
-//                throw (AppException)e;
-//            throw AppException.network(e);
-//        }
-//    }
+    public static User login(AppContext appContext, String username, String pwd) throws AppException {
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("username", username);
+        params.put("pwd", pwd);
+        params.put("keep_login", 1);
+
+        String loginurl = URLs.LOGIN_VALIDATE_HTTP;
+        if(appContext.isHttpsLogin()){
+            loginurl = URLs.LOGIN_VALIDATE_HTTPS;
+        }
+
+        try{
+            return User.parse(_post(appContext, loginurl, params, null));
+        }catch(Exception e){
+            if(e instanceof AppException)
+                throw (AppException)e;
+            throw AppException.network(e);
+        }
+    }
 
     /**
      * 我的个人资料

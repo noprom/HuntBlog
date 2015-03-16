@@ -17,6 +17,7 @@ import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Notice;
 import com.noprom.app.bean.User;
 import com.noprom.app.common.CyptoUtils;
+import com.noprom.app.common.FileUtils;
 import com.noprom.app.common.StringUtils;
 import com.noprom.app.common.UIHelper;
 
@@ -95,6 +96,17 @@ public class AppContext extends Application {
     }
 
     /**
+     * 清除登陆信息
+     */
+    public void cleanLoginInfo(){
+        this.loginUid = 0 ;
+        this.login = false;
+        removeProperty("user.uid","user.name","user.face","user.account","user.pwd",
+                "user.location","user.followers","user.fans","user.score","user.isRememberMe");
+    }
+
+
+    /**
      * 获取登陆信息
      * @return
      */
@@ -111,6 +123,37 @@ public class AppContext extends Application {
         lu.setScore(StringUtils.toInt(getProperty("user.score"), 0));
         lu.setRememberMe(StringUtils.toBool(getProperty("user.isRememberMe")));
         return lu;
+    }
+
+    /**
+     * 保存登陆信息
+     * @param user
+     */
+    public void saveLoginInfo(final User user){
+        this.loginUid = user.getUid();
+        this.login = true;
+        setProperties(new Properties(){{
+            setProperty("user.uid", String.valueOf(user.getUid()));
+            setProperty("user.name", user.getName());
+            setProperty("user.face", FileUtils.getFileName(user.getFace()));//用户头像-文件名
+            setProperty("user.account", user.getAccount());
+            setProperty("user.pwd", CyptoUtils.encode("oschinaApp",user.getPwd()));
+            setProperty("user.location", user.getLocation());
+            setProperty("user.followers", String.valueOf(user.getFollowers()));
+            setProperty("user.fans", String.valueOf(user.getFans()));
+            setProperty("user.score", String.valueOf(user.getScore()));
+            setProperty("user.isRememberMe", String.valueOf(user.isRememberMe()));//是否记住我的信息
+        }});
+    }
+    /**
+     * 用户登录验证
+     * @param account
+     * @param pwd
+     * @return
+     * @throws AppException
+     */
+    public User loginVerify(String account,String pwd) throws AppException{
+        return ApiClient.login(this,account,pwd);
     }
 
     /**
@@ -154,6 +197,17 @@ public class AppContext extends Application {
             return StringUtils.toBool(perf_voice);
     }
 
+    /**
+     * 是否是Https登陆
+     * @return
+     */
+    public boolean isHttpsLogin(){
+        String pref_httpslogin = getProperty(AppConfig.CONF_HTTPS_LOGIN);
+        // 默认是http
+        if(StringUtils.isEmpty(pref_httpslogin))
+            return false;
+        else return StringUtils.toBool(pref_httpslogin);
+    }
     /**
      * 应用程序是否发出声音
      *
