@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.noprom.app.AppContext;
-import com.noprom.app.AppException;
 import com.noprom.app.R;
+import com.noprom.app.bean.User;
 import com.noprom.app.common.StringUtils;
 import com.noprom.app.common.UIHelper;
 
@@ -68,12 +68,14 @@ public class LoginActivity extends ActionBarActivity {
                     return;
                 }
 
-                // TODO login
+                // 登陆操作
+                login(account,pwd);
             }
         });
 
-        // TODO 是否显示登录信息
-
+        // 是否显示登录信息
+        AppContext ac = (AppContext) getApplication();
+        User user = ac.getLo
 
     }
 
@@ -86,13 +88,9 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void run() {
                 Message msg = new Message();
-                try{
-                    AppContext ac = (AppContext) getApplication();
-                    // TODO
+                AppContext ac = (AppContext) getApplication();
+                // TODO
 
-                }catch (AppException e){
-
-                }
             }
         }.start();
     }

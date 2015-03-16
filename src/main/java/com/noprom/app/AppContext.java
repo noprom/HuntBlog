@@ -15,6 +15,8 @@ import com.noprom.app.bean.BlogList;
 import com.noprom.app.bean.News;
 import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Notice;
+import com.noprom.app.bean.User;
+import com.noprom.app.common.CyptoUtils;
 import com.noprom.app.common.StringUtils;
 import com.noprom.app.common.UIHelper;
 
@@ -90,6 +92,25 @@ public class AppContext extends Application {
      */
     public boolean isLogin() {
         return login;
+    }
+
+    /**
+     * 获取登陆信息
+     * @return
+     */
+    public User getLoginInfo(){
+        User lu = new User();
+        lu.setUid(StringUtils.toInt(getProperty("user.uid"),0));
+        lu.setName(getProperty("user.name"));
+        lu.setFace(getProperty("user.face"));
+        lu.setAccount(getProperty("user.account"));
+        lu.setPwd(CyptoUtils.decode("oschinaApp", getProperty("user.pwd")));
+        lu.setLocation(getProperty("user.location"));
+        lu.setFollowers(StringUtils.toInt(getProperty("user.followers"), 0));
+        lu.setFans(StringUtils.toInt(getProperty("user.fans"), 0));
+        lu.setScore(StringUtils.toInt(getProperty("user.score"), 0));
+        lu.setRememberMe(StringUtils.toBool(getProperty("user.isRememberMe")));
+        return lu;
     }
 
     /**
