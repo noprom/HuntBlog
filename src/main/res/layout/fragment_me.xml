@@ -9,29 +9,117 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="wrap_content"
                 android:background="@drawable/user_center_bg"
                 android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/login_btn"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:background="@drawable/widget_dface"/>
 
                 <TextView
+                    android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_10"
                     android:text="请先登录"
                     android:textColor="@color/white"/>
+
+                <LinearLayout
+                    android:id="@+id/userinfo_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="积分"/>
+
+                        <TextView
+                            android:id="@+id/user_info_score"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="25"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="收藏"/>
+
+                        <TextView
+                            android:id="@+id/user_info_favorite"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="25"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="关注"/>
+
+                        <TextView
+                            android:id="@+id/user_info_followers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="25"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="粉丝"/>
+
+                        <TextView
+                            android:id="@+id/user_info_fans"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="25"/>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,10 +133,10 @@
                     android:src="@drawable/icon_my_message"/>
 
                 <TextView
-                    android:paddingLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
                     android:text="消息"
                     android:textSize="@dimen/text_size_20"/>
             </LinearLayout>
@@ -65,10 +153,10 @@
                     android:src="@drawable/icon_my_blog"/>
 
                 <TextView
-                    android:paddingLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
                     android:text="博客"
                     android:textSize="@dimen/text_size_20"/>
             </LinearLayout>

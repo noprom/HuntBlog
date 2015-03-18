@@ -1,6 +1,7 @@
 
 package com.noprom.app.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
@@ -13,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.noprom.app.R;
+import com.noprom.app.ui.LoginActivity;
 
 /**
  * 综合Tab MeFragment
@@ -27,16 +30,32 @@ import com.noprom.app.R;
 public class MeFragment extends Fragment {
     private final String TAG = "MeFragment";
 
+
+    private ImageButton mLoginBtn;
+
+
+
     private boolean mSearchCheck;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
 
         View rootView = inflater.inflate(R.layout.fragment_me, container, false);
         rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        mLoginBtn = (ImageButton) rootView.findViewById(R.id.login_btn);
+        mLoginBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.putExtra("LOGINTYPE",0x00);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
     }
 

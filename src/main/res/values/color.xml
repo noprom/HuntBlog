@@ -20,6 +20,8 @@
     <color name="grayslate">#708090</color>
     <color name="lightblue">#0083FF</color>
     <color name="loginbg">#EBEBEB</color>
+    <color name="user_center_bg">#10AA36</color>
+
 
     <color name="full_transparent">#00000000</color>
     <color name="half_transparent">#aa000000</color>
