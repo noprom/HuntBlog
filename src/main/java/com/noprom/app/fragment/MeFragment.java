@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.noprom.app.R;
@@ -31,8 +32,12 @@ public class MeFragment extends Fragment {
     private final String TAG = "MeFragment";
 
 
-    private ImageButton mLoginBtn;
-
+    private ImageButton mUserInfoFace;
+    private TextView mUserInfoUsername;
+    private TextView mUserInfoScore;
+    private TextView mUserInfoFavorite;
+    private TextView mUserInfoFollows;
+    private TextView mUserInfoFans;
 
 
     private boolean mSearchCheck;
@@ -45,21 +50,30 @@ public class MeFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_me, container, false);
         rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-        mLoginBtn = (ImageButton) rootView.findViewById(R.id.login_btn);
-        mLoginBtn.setOnClickListener(new View.OnClickListener(){
+
+        // 初始化视图控件
+        mUserInfoFace = (ImageButton) rootView.findViewById(R.id.user_info_face);
+        mUserInfoUsername = (TextView) rootView.findViewById(R.id.user_info_username);
+        mUserInfoScore = (TextView) rootView.findViewById(R.id.user_info_score);
+        mUserInfoFavorite = (TextView) rootView.findViewById(R.id.user_info_favorite);
+        mUserInfoFollows = (TextView) rootView.findViewById(R.id.user_info_followers);
+        mUserInfoFans = (TextView) rootView.findViewById(R.id.user_info_fans);
+
+
+
+        // 初始化点击事件
+        mUserInfoFace.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
-                intent.putExtra("LOGINTYPE",0x00);
+                intent.putExtra("LOGINTYPE", 0x00);
                 startActivity(intent);
             }
         });
 
         return rootView;
     }
-
-
 
 
     @Override
