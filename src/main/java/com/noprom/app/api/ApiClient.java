@@ -7,6 +7,7 @@ import android.util.Log;
 import com.noprom.app.AppContext;
 import com.noprom.app.AppException;
 import com.noprom.app.bean.BlogList;
+import com.noprom.app.bean.MyInformation;
 import com.noprom.app.bean.News;
 import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Result;
@@ -461,18 +462,18 @@ public class ApiClient {
      * @param uid
      * @return
      */
-//    public static MyInformation myInformation(AppContext appContext, int uid) throws AppException {
-//        Map<String,Object> params = new HashMap<String,Object>();
-//        params.put("uid", uid);
-//
-//        try{
-//            return MyInformation.parse(_post(appContext, URLs.MY_INFORMATION, params, null));
-//        }catch(Exception e){
-//            if(e instanceof AppException)
-//                throw (AppException)e;
-//            throw AppException.network(e);
-//        }
-//    }
+    public static MyInformation myInformation(AppContext appContext, int uid) throws AppException {
+        Map<String,Object> params = new HashMap<String,Object>();
+        params.put("uid", uid);
+
+        try{
+            return MyInformation.parse(_post(appContext, URLs.MY_INFORMATION, params, null));
+        }catch(Exception e){
+            if(e instanceof AppException)
+                throw (AppException)e;
+            throw AppException.network(e);
+        }
+    }
 
     /**
      * 更新用户头像

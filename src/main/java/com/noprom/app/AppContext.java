@@ -12,6 +12,7 @@ import android.os.Message;
 
 import com.noprom.app.api.ApiClient;
 import com.noprom.app.bean.BlogList;
+import com.noprom.app.bean.MyInformation;
 import com.noprom.app.bean.News;
 import com.noprom.app.bean.NewsList;
 import com.noprom.app.bean.Notice;
@@ -145,6 +146,41 @@ public class AppContext extends Application {
             setProperty("user.isRememberMe", String.valueOf(user.isRememberMe()));//是否记住我的信息
         }});
     }
+
+
+    /**
+     * 我的个人资料
+     * @param isRefresh 是否主动刷新
+     * @return
+     * @throws AppException
+     */
+    public MyInformation getMyInformation(boolean isRefresh) throws AppException {
+        MyInformation myinfo = null;
+        String key = "myinfo_"+loginUid;
+        if(isNetworkConnected() && (!isReadDataCache(key) || isRefresh)) {
+            try{
+                myinfo = ApiClient.myInformation(this, loginUid);
+                if(myinfo != null && myinfo.getName().length() > 0){
+                    Notice notice = myinfo.getNotice();
+                    myinfo.setNotice(null);
+                    myinfo.setCacheKey(key);
+                    saveObject(myinfo, key);
+                    myinfo.setNotice(notice);
+                }
+            }catch(AppException e){
+                myinfo = (MyInformation)readObject(key);
+                if(myinfo == null)
+                    throw e;
+            }
+        } else {
+            myinfo = (MyInformation)readObject(key);
+            if(myinfo == null)
+                myinfo = new MyInformation();
+        }
+        return myinfo;
+    }
+
+
     /**
      * 用户登录验证
      * @param account

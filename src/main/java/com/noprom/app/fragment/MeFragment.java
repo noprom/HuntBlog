@@ -3,6 +3,8 @@ package com.noprom.app.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -14,11 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.noprom.app.AppContext;
+import com.noprom.app.AppException;
 import com.noprom.app.R;
+import com.noprom.app.bean.MyInformation;
+import com.noprom.app.common.UIHelper;
 import com.noprom.app.ui.LoginActivity;
 
 /**
@@ -32,13 +38,15 @@ public class MeFragment extends Fragment {
     private final String TAG = "MeFragment";
 
 
-    private ImageButton mUserInfoFace;
+    private ImageView mUserInfoFace;
     private TextView mUserInfoUsername;
     private TextView mUserInfoScore;
     private TextView mUserInfoFavorite;
     private TextView mUserInfoFollows;
     private TextView mUserInfoFans;
 
+    private MyInformation user;
+    private Handler mHandler;
 
     private boolean mSearchCheck;
 
@@ -52,7 +60,7 @@ public class MeFragment extends Fragment {
         rootView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         // 初始化视图控件
-        mUserInfoFace = (ImageButton) rootView.findViewById(R.id.user_info_face);
+        mUserInfoFace = (ImageView) rootView.findViewById(R.id.user_info_face);
         mUserInfoUsername = (TextView) rootView.findViewById(R.id.user_info_username);
         mUserInfoScore = (TextView) rootView.findViewById(R.id.user_info_score);
         mUserInfoFavorite = (TextView) rootView.findViewById(R.id.user_info_favorite);
@@ -72,7 +80,48 @@ public class MeFragment extends Fragment {
             }
         });
 
+        // 初始化视图数据
+        this.initData();
+
         return rootView;
+    }
+
+    /**
+     * 初始化视图数据
+     */
+    private void initData() {
+        mHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                if(msg.what == 1 && msg.obj !=null){
+                    user = (MyInformation) msg.obj;
+                    // 加载用户头像
+                    UIHelper.showUserFace(mUserInfoFace,user.getFace());
+
+                    
+                }
+            }
+        };
+        this.loadUserInfoThread(false);
+    }
+
+    private void loadUserInfoThread(final boolean isRefresh) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Message msg = new Message();
+                try{
+                    MyInformation user = ((AppContext) getActivity().getApplication()).getMyInformation(isRefresh);
+                    msg.what = 1;
+                    msg.obj = user;
+                }catch (AppException e){
+                    e.printStackTrace();
+                    msg.what = -1;
+                    msg.obj = e;
+                }
+                mHandler.sendMessage(msg);
+            }
+        }).start();
     }
 
 
